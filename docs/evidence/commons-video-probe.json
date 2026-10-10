@@ -1,0 +1,24 @@
+{
+  "filename": "commons-building-site.webm",
+  "sha256": "f7cbf03f56e0a864ddba057c47b8a67c57f176e10e04995c59e14d8ab00024d7",
+  "size_bytes": 6674729,
+  "ffprobe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp8",
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "25/1",
+        "avg_frame_rate": "25/1"
+      }
+    ],
+    "format": {
+      "duration": "5.243000",
+      "size": "6674729"
+    }
+  },
+  "content_reviewed": false,
+  "violations_verified": false
+}

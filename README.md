@@ -4,8 +4,9 @@ An open-source research project for construction video detection, worker trackin
 and evidence-based PPE event review. The aim is to measure failures and alert
 reliability before building a client-facing video intelligence application.
 
-**Current status: Phase 0 foundation; not a deployed safety-monitoring system.**
-No construction-video accuracy, tracking score, or event reliability has been measured.
+**Current status: real-video CPU detection baseline executed; research prototype.**
+Two licensed clips (298 frames) have annotated outputs and per-frame records.
+No detection accuracy, tracking score, or event reliability has been measured.
 See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 
 ## Available now
@@ -14,16 +15,17 @@ See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 - Streaming SHA-256 checksums and bounded static PyTorch checkpoint inspection.
 - Local video metadata inspection with FFmpeg, without treating metadata as visual review.
 - Environment diagnostics, unit tests, and a Windows/Linux CI configuration.
-- An isolated checkpoint verification procedure and research acceptance criteria.
+- An isolated, checksum-pinned YOLO26n loader and verified architecture/class metadata.
+- Real-video normalization and detection CLI with annotated video, JSONL and run manifests.
 
-The inference pipeline, tracking comparison, safety event engine, API, and React
-dashboard are subsequent gated phases. There are no sample business metrics or
+The tracking comparison, safety event engine, API, and React dashboard are subsequent
+gated phases. Human reference annotation remains pending. There are no sample business metrics or
 fabricated events in this repository.
 
 ## Architecture and roadmap
 
-Video ingestion → YOLO26 detections → person-only tracking → PPE association →
-temporal event engine → SQLite/FastAPI → React inspection dashboard.
+Video ingestion â†’ YOLO26 detections â†’ person-only tracking â†’ PPE association â†’
+temporal event engine â†’ SQLite/FastAPI â†’ React inspection dashboard.
 
 Each component will use explicit frame indexes, timestamps, asset checksums,
 versioned configurations, and experiment IDs. Worker IDs are local to a video,
@@ -31,11 +33,11 @@ not biometric or cross-video identities. Unobserved PPE remains unknown.
 
 Planned stack: Ultralytics YOLO26, PyTorch, OpenCV, ByteTrack/BoT-SORT,
 FastAPI/Pydantic/SQLite, React/TypeScript/Vite. Only the foundation described
-above is currently implemented. See [implementation plan](docs/IMPLEMENTATION_PLAN.md).
+above, including detection, is currently implemented. See [implementation plan](docs/IMPLEMENTATION_PLAN.md).
 
 ## Install the foundation
 
-Python 3.10–3.12 is the initial target. Python 3.10 is tested locally on Windows;
+Python 3.10â€“3.12 is the initial target. Python 3.10 is tested locally on Windows;
 the Docker model inspector uses Python 3.11. The vision dependency set uses
 NumPy 1.26 and is not targeted at Python 3.13.
 
@@ -69,6 +71,24 @@ Static inspection returns records such as `sha256`, `size_bytes`, `globals`, and
 `load_performed: false`. It does not certify a checkpoint as safe. Measured local
 records are stored in [docs/evidence](docs/evidence).
 
+## Measured detection baseline
+
+| Clip | Frames | Processing FPS | Evaluation status |
+|---|---:|---:|---|
+| Building site (CC0) | 131 | 2.311 | Qualitative review only |
+| Street works (CC BY 4.0) | 167 | 3.114 | Qualitative review only |
+
+Measured in a two-CPU, 2 GiB Docker container on the Windows laptop, at 640 inference
+size and confidence 0.25. Timing includes decode/predict/draw/write and excludes
+load/warmup. These are single-run observations, not general hardware benchmarks.
+The building repeat produced byte-identical detection JSONL. No accuracy is claimed.
+
+Run `./scripts/run_baseline.ps1 -Video building -RunName my-building-run` after
+[acquiring and normalizing inputs](docs/BASELINE_REPRODUCTION.md). See the
+[baseline report](experiments/reports/BASELINE_CPU.md) for frame-linked failures,
+settings, output definitions and measured results. Annotated videos are local under
+`data/runs/`, excluded from Git; structured observations are in `experiments/results/`.
+
 ## Research method
 
 Establish real-video detection before tuning. Freeze manually reviewed annotation
@@ -91,6 +111,7 @@ project asset. Its repository's MIT license alone does not establish the rights
 for its weights or training data. Pexels footage is acquired separately, and raw
 video, checkpoints, datasets, credentials, and runtime outputs are ignored by Git.
 
-Research evidence states are not safety certification. There are no real-video
-demonstrations or benchmark accuracy claims yet. All later acceptance gates remain
+Research evidence states are not safety certification. Real-video inference has
+been demonstrated, but no benchmark accuracy is claimed. Detector misses and
+suspected false helmet detections are documented. Later acceptance gates remain
 open until actually executed and documented.

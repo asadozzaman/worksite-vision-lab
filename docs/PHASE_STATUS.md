@@ -1,84 +1,104 @@
 # Phase status
 
-As of 2026-10-10 (Asia/Dhaka). Status describes execution, not code volume.
+As of 2026-10-10 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
-| Phase | Status | Evidence / gate |
+| Phase | Status | Evidence / remaining gate |
 |---|---|---|
-| 0 — foundation | Partially implemented and verified | Local package and 32 tests pass; initial six-job CI matrix passed; repository and push access verified; model static inspection done. Isolated model check pending; real-video acquisition and weight rights unresolved. |
-| 1 — real detection baseline | Blocked before execution | No acquired/visually reviewed real footage; no cleared PPE baseline. |
-| 2 — tracking comparison | Not started | Depends on actual baseline input and outputs. |
-| 3 — failure analysis | Not started | Requires observed failures and reference annotations. |
-| 4 — event reliability | Not started | Requires class/association evidence and frozen evaluation set. |
-| 5 — API/dashboard | Not started | Deliberately gated by research verification. |
-| 6 — release validation | Not started | Requires an end-to-end real CPU demonstration. |
+| 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
+| 1 — real detection baseline | Inference implemented and verified; reference evaluation partial | Two real clips, 298 frames, annotated videos, JSONL, CPU timing, repeatability and frame-linked qualitative failures. Human reference annotations/accuracy pending. |
+| 2 — tracking comparison | Not started | Next: person-only ByteTrack/BoT-SORT; distinguish detector misses from tracker errors. Human identity labels needed for formal scores. |
+| 3 — failure analysis | Partially implemented | Initial frame-linked observations and three untested hypotheses recorded; no controlled tuning experiments yet. |
+| 4 — event reliability | Not started | Needs validated association and frozen reference events. |
+| 5 — API/dashboard | Not started | No mock application or invented metrics. |
+| 6 — release validation | Not started | Requires full platform integration and end-to-end validation. |
 
-## Phase 0 objective and delivered work
+## Phase 0
 
-Establish a repeatable research foundation before inference or training. Added:
+**Objective:** establish verified inputs and reproducible software before inference.
 
-- Python package/CLI, validated experiment settings and asset provenance schema.
-- Streaming hashes, bounded static checkpoint inspection and FFmpeg metadata probing.
-- Isolated Docker checkpoint procedure and explicit, reviewed load allowlist.
-- Windows/Linux Python 3.10–3.12 CI matrix; pinned foundation environment.
-- AGPL license, third-party notices, asset acquisition and phased acceptance plans.
-- Unit tests covering malformed archives, no pickle execution, configuration,
-  provenance claims, class resolution, CLI behavior and video probing.
+Delivered Python packaging, CLI diagnostics, validated config/provenance schemas,
+bounded static checkpoint inspection, isolated loader, pinned dependencies, AGPL
+license/notices, Windows/Linux CI and acquisition/annotation protocols. No private
+or employer code/data was imported; SiteGuard application code was inspected only.
 
-Changed files: `vision/`, `tests/`, `scripts/`, `docker/`, `requirements/`,
-`experiments/configs/`, `docs/`, `.github/workflows/ci.yml`, packaging, README,
-license, notices, ignore rules and environment template. No application code from
-SiteGuard or private/employer assets was imported.
+Checkpoint: 5,394,437 bytes, SHA-256
+`b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3`,
+source commit `f4d1a097679439f3eaec4e5569d4e52d479cf592`. Restricted load succeeded
+inside an offline non-root container. Actual 11 labels include Person at 6;
+2,508,090 parameters; exact state-dict match to official YOLO26n with 11 classes.
+Embedded producer version 8.4.37 and AGPL declaration are recorded. Original
+training lineage/image rights remain unaudited; no weight redistribution.
 
-## Provenance and measured results
+Important finding: producer 8.4.37 defaults missing `_end2end` to true; current
+8.4.173 defaults false. The loader explicitly restores the producer behavior.
+The initial false reading is retained as an investigated compatibility artifact.
+Initial container mount `inspect.py` shadowed the standard library; renamed and
+retested. Static inspection alone was never treated as safe-load certification.
 
-- SiteGuard artifact pinned to commit `f4d1a097679439f3eaec4e5569d4e52d479cf592`;
-  5,394,437 bytes and SHA-256 recorded in [assets.json](assets.json).
-- Static inspection: 718 archive members, 28 explicit globals; no unpickle/load.
-- Foundation: 32 tests passed (4.18 s), lint and formatting pass, `pip check` passes;
-  editable installation and wheel build pass. The added FFmpeg integration test
-  uses a synthetic five-frame fixture solely to verify metadata tooling.
-- Pexels clip descriptions/licenses reviewed; publisher metadata recorded, files
-  not acquired or independently measured. No claims of observed violations.
-- No detection precision/recall/mAP, tracking scores, false-alert rates, GPU
-  utilization or CPU video throughput measured.
+Two suitable Commons inputs acquired (CC0 and CC BY 4.0), measured and sampled.
+A third roof clip was rejected for insufficient PPE detail. Pexels source/license
+research is complete but those files remain unacquired due to automatic collection
+restrictions; Commons alternatives unblock the baseline.
 
-## Repository and external access
+## Phase 1
 
-The expected GitHub repository initially returned not found. After the owner made
-it available, authenticated API inspection confirmed
-`asadozzaman/worksite-vision-lab`, an empty public repository with default branch
-`main` and push permission. Remote history was empty. An empty base commit
-`a5f8ce3` initializes `main`; implementation is on `feat/phase-0-foundation`.
-No feature work is merged into `main`.
+**Objective:** real construction-video inference before tuning or training.
 
-Initial implementation commit: `0ea80032e0560af04681f62a9e0a38ec8de97066`.
-[Draft PR #1](https://github.com/asadozzaman/worksite-vision-lab/pull/1) is open.
-[Initial Actions run](https://github.com/asadozzaman/worksite-vision-lab/actions/runs/38035960790)
-passed all six OS/Python jobs at that commit. The initial matrix ran 31 foundation
-tests per job. Subsequent verification changes require their own CI result.
+Implemented normalization with source/output hashes and frame counts, audited
+model reconstruction, CPU/optional-device detection CLI, streaming JSONL including
+empty frames, aligned timestamps, annotated video, evidence samples, timing,
+failure records and reproducible Docker wrapper. GPU path is implemented but not
+executed; the image contains CPU Torch only.
 
-No GitHub connector is installed, but Git Credential Manager authentication works
-for Git and GitHub REST. No exposed Kaggle connector/execution action was found;
-plugin search for Kaggle returned no match. No cloud GPU work was submitted.
+| Executed run | Frames | Processing time | Processing FPS |
+|---|---:|---:|---:|
+| Building baseline | 131 | 56.690 s | 2.311 |
+| Street baseline | 167 | 53.625 s | 3.114 |
 
-## Decisions, failures and limitations
+Two-CPU/2 GiB Docker limit, two threads, 360×640 normalized inputs at 25 fps,
+640 inference size, confidence 0.25. Processing includes decode/predict/draw/write,
+excludes model load/warmup. Other host applications were active. No general
+performance or accuracy claim follows from these runs.
 
-Start with Ultralytics 8.4.173, inspected locally, rather than silently using latest.
-Use restricted loading inside an offline, non-root, resource-limited container.
-Keep checkpoints/videos outside Git. Treat `none` as unresolved, and lack of a PPE
-detection as unknown. Do not progress to a decorative dashboard before a baseline.
+All 298 JSONL indexes/timestamps and both video frame counts verified. Repeated
+building inference produced byte-identical detection records. Sample review shows
+missed people and suspected false helmet detections. No unique-worker, violation,
+precision/recall/mAP or tracking score is claimed. Human reference annotations are
+pending; assistant qualitative review is explicitly distinguished from ground truth.
 
-Editable installation initially lacked `editables`; fixed and retested. A Windows
-ZIP-name normalization issue was exposed by a security regression test and fixed
-using original archive names. See [experiment log](EXPERIMENT_LOG.md).
+Evidence: `experiments/results/`, `experiments/reports/BASELINE_CPU.md`,
+`docs/evidence/`. Local binary artifacts: `data/runs/building-baseline/` and
+`data/runs/street-baseline/`. See BASELINE_REPRODUCTION.md for exact commands.
 
-Pexels terms restrict unauthorized automated collection; manual acquisition steps
-are documented. SiteGuard's repository MIT statement does not independently clear
-weight/data redistribution. Ground-truth annotations do not yet exist.
+## Tests and external execution
 
-## Next actions
+44 tests pass locally on Windows/Python 3.10; Ruff lint/format pass. Foundation
+editable install, wheel build and dependency check passed. Actual FFmpeg integration
+uses a labeled synthetic software fixture, excluded from research evaluation.
+Six-job Windows/Linux Python 3.10–3.12 Actions matrices passed for commits
+`0ea80032e0560af04681f62a9e0a38ec8de97066` and
+`1fcc2c8f6dd3d9f3a4922e4e7356ad063b7e140a`.
+Current baseline changes require their own Actions run; see PR checks for latest status.
 
-Finish isolated checkpoint verification and update the published foundation PR.
-Acquire the two clips through their normal download controls and review the actual
-footage. Resolve weight rights or select a documented alternative. Only then begin
-Phase 1 and record a real CPU detection baseline.
+GitHub: authenticated push permission verified for `asadozzaman/worksite-vision-lab`.
+The new repository had no history. Empty base commit `a5f8ce3` initializes main;
+implementation lives on `feat/phase-0-foundation`.
+[PR #1](https://github.com/asadozzaman/worksite-vision-lab/pull/1) is open and unmerged.
+The PR head/history records subsequent baseline commit SHAs without a self-referential
+commit ID in this file.
+
+No Kaggle connector/execution action was exposed when checked; discovery returned
+no Kaggle result. No hosted notebook, GPU job, training or external paid compute ran.
+
+## Changed files and next actions
+
+Foundation: `vision/`, `tests/`, `scripts/`, `docker/`, `requirements/`, configs,
+CI, README, license/notices and docs. Baseline additions: `vision/detection/`,
+normalization/Docker run scripts, detection-record tests, measured structured
+results and evidence reports. Checkpoints, videos, credentials and private assets
+remain excluded from Git.
+
+Next: obtain human review of the frame-linked reference subset, then compare
+person-only trackers on frozen inputs. Investigate official person-detector fallback
+before attributing missing detections to tracking. No training is currently justified.
+Do not claim later phases complete until their code and experiments actually run.

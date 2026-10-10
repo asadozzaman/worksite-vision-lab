@@ -1,0 +1,123 @@
+{
+  "status": "completed",
+  "schema_version": 1,
+  "model": {
+    "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
+    "size_bytes": 5394437,
+    "names": {
+      "0": "helmet",
+      "1": "gloves",
+      "2": "vest",
+      "3": "boots",
+      "4": "goggles",
+      "5": "none",
+      "6": "Person",
+      "7": "no_helmet",
+      "8": "no_goggle",
+      "9": "no_gloves",
+      "10": "no_boots"
+    },
+    "parameter_count": 2508090,
+    "producer_version": "8.4.37",
+    "runtime_ultralytics": "8.4.173",
+    "torch": "2.7.0+cpu",
+    "python": "3.11.17",
+    "effective_end2end": true,
+    "mode_reason": "restore v8.4.37 missing _end2end default True; explicit in v8.4.173",
+    "official_yolo26n_state_dict_strict_match": true,
+    "embedded_license": "AGPL-3.0 (https://ultralytics.com/license)",
+    "load_mode": "weights_only=True, explicit reviewed allowlist, checksum pinned"
+  },
+  "video_sha256": "d27da60077cb9a8b41f0ffde748026f9b6f213c430979875a0df1f4f0a6d7d53",
+  "normalization": {
+    "source_filename": "commons-building-site.webm",
+    "source_sha256": "f7cbf03f56e0a864ddba057c47b8a67c57f176e10e04995c59e14d8ab00024d7",
+    "output_sha256": "d27da60077cb9a8b41f0ffde748026f9b6f213c430979875a0df1f4f0a6d7d53",
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-xerror",
+      "-i",
+      "E:\\Computer Vision Project\\Worksite Vision Lab\\data\\videos\\commons-building-site.webm",
+      "-map",
+      "0:v:0",
+      "-an",
+      "-vf",
+      "scale=640:640:force_original_aspect_ratio=decrease:force_divisible_by=2,fps=25",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-movflags",
+      "+faststart",
+      "-n",
+      "E:\\Computer Vision Project\\Worksite Vision Lab\\data\\normalized\\building.mp4"
+    ],
+    "stderr": "",
+    "fps": 25.0,
+    "frame_count": 131,
+    "width": 360,
+    "height": 640,
+    "timestamp_definition": "zero-based frame index divided by normalized CFR fps",
+    "ffmpeg_version": "ffmpeg version N-121253-g8a34faa250-20250927 Copyright (c) 2000-2025 the FFmpeg developers"
+  },
+  "parameters": {
+    "imgsz": 640,
+    "conf": 0.25,
+    "iou": 0.7,
+    "max_det": 300,
+    "device": "cpu",
+    "verbose": false,
+    "save": false,
+    "end2end": true,
+    "threads": 2,
+    "seed": 0
+  },
+  "frame_count": 131,
+  "fps": 25.0,
+  "width": 360,
+  "height": 640,
+  "detection_counts_by_class": {
+    "Person": 205,
+    "none": 184,
+    "helmet": 21,
+    "boots": 71,
+    "gloves": 1
+  },
+  "count_definition": "box observations across frames, not unique people or violations",
+  "load_and_synthetic_warmup_seconds": 2.4052487709996058,
+  "processing_seconds": 56.69005323999954,
+  "processing_fps": 2.3108110243856435,
+  "predict_seconds": 52.53361639200921,
+  "predict_fps": 2.493641386164425,
+  "timing_scope": "processing includes decode/predict/draw/write; excludes load/warmup",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "gpu_executed": false,
+  "accuracy_measured": false,
+  "ground_truth": null,
+  "output_hashes": {
+    "detections.jsonl": "b973ca43de30a28e6422c7a6610d14ce9c10c26a541b649968d951ecae7e1a85",
+    "annotated.mp4": "b6b0a4cff513c047ce58a434c810334dd476ca66d1205d5fe65f23deb2cc2273"
+  },
+  "artifact_validation": {
+    "jsonl_frames": 131,
+    "timestamps_aligned": true,
+    "annotated_video_probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 360,
+          "height": 640,
+          "avg_frame_rate": "25/1",
+          "nb_read_frames": "131"
+        }
+      ]
+    }
+  }
+}

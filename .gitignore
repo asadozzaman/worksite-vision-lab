@@ -20,6 +20,8 @@ runs/
 *.mov
 *.avi
 *.mkv
+*.webm
+*.ogv
 *.sqlite*
 node_modules/
 frontend/dist/

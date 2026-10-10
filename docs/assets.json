@@ -3,6 +3,46 @@
   "reviewed_on": "2026-10-10",
   "assets": [
     {
+      "id": "commons-building-site",
+      "kind": "video",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Men_at_work_in_building_site.webm",
+      "revision": "File upload 2024-03-12T13:17:03Z; description oldid 1134075726",
+      "creator": "Akum20",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "license_status": "verified",
+      "redistribution": "verified",
+      "acquisition_status": "acquired",
+      "sha256": "f7cbf03f56e0a864ddba057c47b8a67c57f176e10e04995c59e14d8ab00024d7",
+      "size_bytes": 6674729,
+      "notes": "CC0 declaration by own-work uploader verified on Commons page and imageinfo API. Actual local file measured: VP8, 1080x1920, 25 fps, 5.243 s. Assistant inspected one-second contact-sheet samples: foreground material-mixing worker, cropped worker and distant people; small objects and truncation present. No human reference annotations or certified violation labels. Kept out of Git despite CC0."
+    },
+    {
+      "id": "commons-manual-workers",
+      "kind": "video",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Manual_workers_2026.webm",
+      "creator": "KabanDanish",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_status": "verified",
+      "redistribution": "verified",
+      "acquisition_status": "acquired",
+      "sha256": "c956118160d76fac944eba0b55fb21347b8a064695f20cc41384ce50e7c9181c",
+      "size_bytes": 6080478,
+      "notes": "Own-work uploader CC BY 4.0 declaration verified on Commons. Measured 720x1280, VP9, 30 fps, 6.761 s. Assistant inspected one-second samples: street works behind barriers, multiple workers/pedestrians, bright workwear, strong zoom, motion blur and passing vehicle occlusion. No reference violation labels. FFmpeg emitted an Opus audio warning; video samples decoded. Normalize video without audio and verify every frame before inference. Attribution required; not committed."
+    },
+    {
+      "id": "commons-roof-workers",
+      "kind": "video",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Workers_on_the_roof.webm",
+      "creator": "Eric Harrison",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "license_status": "verified",
+      "redistribution": "verified",
+      "acquisition_status": "acquired",
+      "sha256": "e027cc1e91f6e6cb573edb465c5036f4227019d9675ef9ca21d9949b392b1a51",
+      "size_bytes": 13600616,
+      "notes": "Commons source page identifies Flickr origin and CC BY-SA 2.0, with a trusted-user Flickr review. Actual local file measured: VP9, 1920x1080, 24000/1001 fps, 24.923 s. Attribution and share-alike apply to adapted footage, independently of code licensing. Kept outside Git. See asset review for observed content; no reference annotation or violation claim."
+    },
+    {
       "id": "siteguard-yolo26n-ppe",
       "kind": "checkpoint",
       "source_url": "https://github.com/C-Nekopedia/SiteGuard/blob/f4d1a097679439f3eaec4e5569d4e52d479cf592/data/models/yolo26n_ppe.pt",
@@ -14,7 +54,7 @@
       "acquisition_status": "quarantined",
       "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
       "size_bytes": 5394437,
-      "notes": "Downloaded from a commit-pinned raw URL. Upstream Git blob ID d462632cbb2b556b534e4243260240f7d5bff1e2. MIT repository license does not establish independent weight/data rights. See MODEL_RESEARCH.md for technical verification. Not cleared for redistribution."
+      "notes": "Downloaded from a commit-pinned raw URL. Upstream Git blob ID d462632cbb2b556b534e4243260240f7d5bff1e2. Embedded metadata declares AGPL-3.0 and Ultralytics 8.4.37; repository MIT does not establish independent weight/data rights. See MODEL_RESEARCH.md for technical verification. Not cleared for redistribution."
     },
     {
       "id": "pexels-38885275",

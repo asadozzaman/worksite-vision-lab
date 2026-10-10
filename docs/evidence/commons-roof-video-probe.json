@@ -1,0 +1,24 @@
+{
+  "filename": "commons-roof-workers.webm",
+  "sha256": "e027cc1e91f6e6cb573edb465c5036f4227019d9675ef9ca21d9949b392b1a51",
+  "size_bytes": 13600616,
+  "ffprobe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "24000/1001",
+        "avg_frame_rate": "24000/1001"
+      }
+    ],
+    "format": {
+      "duration": "24.923000",
+      "size": "13600616"
+    }
+  },
+  "content_reviewed": false,
+  "violations_verified": false
+}

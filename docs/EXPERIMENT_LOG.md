@@ -1,7 +1,7 @@
 # Experiment log
 
-No real-video baseline, training, tracking benchmark, or event comparison has run.
-Synthetic software tests below are excluded from evaluation results.
+Real-video baseline runs are recorded below. No training, tracking benchmark or
+event comparison has run. Synthetic software tests are excluded from evaluation.
 
 ## ENV-001 — foundation installation and checks
 
@@ -41,3 +41,45 @@ Synthetic software tests below are excluded from evaluation results.
 3. Annotate observed failures before proposing or tuning three controlled hypotheses.
 
 No failure hypotheses or performance improvements are claimed before observation.
+
+## ASSET-001 — licensed footage acquisition and sampling
+
+- Downloaded Commons `Men at work in building site.webm` (Akum20, CC0) and
+  `Workers on the roof.webm` (Eric Harrison, CC BY-SA 2.0) through published links.
+- Actual ffprobe outputs/hashes saved in `docs/evidence/commons-*-probe.json`.
+- Inspected contact sheets sampled at one second and five seconds, respectively.
+  First clip has a prominent worker and partially visible/background people;
+  useful for a small qualitative test. Roof clip has insufficient worker/PPE detail
+  and is rejected as primary evaluation footage. This is a documented failed
+  candidate selection, not a detector failure.
+- Reviewer: assistant visual inspection; no human identity or event annotations.
+- No model inference on these files has occurred at this stage.
+
+## MODEL-002 — isolated loading and producer-mode restoration
+
+- Restricted load succeeded using the explicit class allowlist, no unrestricted
+  fallback. Fresh official YOLO26n accepts every state-dict key/shape for 11 classes.
+- Actual Person index 6; 2,508,090 parameters. Embedded AGPL and producer 8.4.37.
+- Initial mount `inspect.py` shadowed Python's inspect module; failed before model
+  load. Corrected to `model_check.py` and reran successfully.
+- Raw object reported end2end false in 8.4.173. Source investigation showed
+  8.4.37 used default true for the absent `_end2end` field. Restored explicitly,
+  documented in loader/run metadata, and completed the compatibility smoke.
+- This corrects the initial interpretation; it is not a claim of superior accuracy.
+
+## BASELINE-001/002 — real-video CPU detection
+
+- Inputs: CC0 building clip and CC BY 4.0 street-work clip; hashes in assets.json.
+- Fixed configuration: 360×640 normalized CFR 25 fps, imgsz 640, confidence 0.25,
+  original end-to-end mode, CPU/two threads, 2 GiB/two-CPU Docker limit.
+- Building: 131 frames / 56.690 s = 2.311 processing FPS.
+- Street: 167 frames / 53.625 s = 3.114 processing FPS.
+- Output frame counts and every JSONL timestamp checked. Counts are observations,
+  not identities or violations. No ground truth or accuracy measured.
+- Reviewed frame references: building 0 and 50, street 75. Missed person boxes and
+  suspected false helmet boxes motivate the untested hypotheses in BASELINE_CPU.md.
+- Repeat building run: detection JSONL byte-identical, SHA-256
+  `b973ca43de30a28e6422c7a6610d14ce9c10c26a541b649968d951ecae7e1a85`;
+  timing varied to 2.538 FPS. A compatibility smoke ran during part of the repeat;
+  repeat timing is not a fair performance comparison.
+- Human annotations and quantitative reference evaluation remain pending.
