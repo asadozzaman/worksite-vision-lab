@@ -1,0 +1,11 @@
+{
+  "python": "3.10.10",
+  "packages": {
+    "torch": "2.7.0",
+    "torchvision": "0.22.0",
+    "ultralytics": "8.4.173",
+    "numpy": "1.26.4",
+    "opencv-python": "4.11.0.86"
+  },
+  "note": "Existing host CV environment; third-party checkpoint not loaded here"
+}

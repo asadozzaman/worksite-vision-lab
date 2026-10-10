@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-10",
+  "assets": [
+    {
+      "id": "siteguard-yolo26n-ppe",
+      "kind": "checkpoint",
+      "source_url": "https://github.com/C-Nekopedia/SiteGuard/blob/f4d1a097679439f3eaec4e5569d4e52d479cf592/data/models/yolo26n_ppe.pt",
+      "revision": "f4d1a097679439f3eaec4e5569d4e52d479cf592",
+      "creator": "C-Nekopedia / SiteGuard",
+      "license_url": "https://github.com/C-Nekopedia/SiteGuard/blob/main/LICENSE",
+      "license_status": "unresolved",
+      "redistribution": "not_authorized",
+      "acquisition_status": "quarantined",
+      "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
+      "size_bytes": 5394437,
+      "notes": "Downloaded from a commit-pinned raw URL. Upstream Git blob ID d462632cbb2b556b534e4243260240f7d5bff1e2. MIT repository license does not establish independent weight/data rights. See MODEL_RESEARCH.md for technical verification. Not cleared for redistribution."
+    },
+    {
+      "id": "pexels-38885275",
+      "kind": "video",
+      "source_url": "https://www.pexels.com/video/urban-construction-scene-with-workers-in-safety-gear-38885275/",
+      "creator": "Kiwi and Camera",
+      "license_url": "https://www.pexels.com/terms-of-service/",
+      "license_status": "source_terms_reviewed",
+      "acquisition_status": "candidate",
+      "notes": "Source page lists 1920x1080, 25 fps, 14 seconds, dated 2026-08-05. These are publisher metadata, not measurements. File not acquired or visually reviewed; worker count, PPE visibility, tracking suitability and violations are unknown. Manual acquisition required; no raw redistribution."
+    },
+    {
+      "id": "pexels-8965526",
+      "kind": "video",
+      "source_url": "https://www.pexels.com/video/construction-workers-walking-at-the-construction-site-8965526/",
+      "creator": "Mikael Blomkvist",
+      "license_url": "https://www.pexels.com/terms-of-service/",
+      "license_status": "source_terms_reviewed",
+      "acquisition_status": "candidate",
+      "notes": "Source page lists 2160x3840, 25 fps, 13 seconds, dated 2021-07-28, and describes two workers with helmets and vests. Portrait-view candidate. File and actual content not reviewed; no violation claim. Manual acquisition required; no raw redistribution."
+    },
+    {
+      "id": "ultralytics-construction-ppe",
+      "kind": "dataset",
+      "source_url": "https://docs.ultralytics.com/datasets/detect/construction-ppe/",
+      "creator": "Mrunmayee Dalvi, Niyati Singh, Sahil Bhingarde, Ketaki Chalke (per upstream citation)",
+      "license_url": "https://docs.ultralytics.com/datasets/detect/construction-ppe/",
+      "license_status": "source_terms_reviewed",
+      "acquisition_status": "candidate",
+      "notes": "Official docs identify AGPL-3.0 and 1,416 images: 1,132 train / 143 val / 141 test. Not downloaded; original per-image provenance, annotation completeness and duplicates not audited. Overlaps the claimed checkpoint training source, so not independent final video test truth. No dedicated missing-vest label; none remains semantically unresolved."
+    },
+    {
+      "id": "official-yolo26n-coco",
+      "kind": "checkpoint",
+      "source_url": "https://docs.ultralytics.com/models/yolo26/",
+      "creator": "Ultralytics",
+      "license_url": "https://www.ultralytics.com/license",
+      "license_status": "source_terms_reviewed",
+      "acquisition_status": "candidate",
+      "notes": "Official yolo26n.pt is the proposed person-tracking fallback under the applicable Ultralytics AGPL terms. Not downloaded or verified locally. COCO person detection does not provide specialized missing-PPE classes."
+    }
+  ]
+}
