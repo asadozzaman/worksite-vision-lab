@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 
 import pytest
@@ -43,3 +44,34 @@ def test_audio_only_file_is_rejected(tmp_path, monkeypatch):
     )
     with pytest.raises(ValueError, match="no video stream"):
         probe_video(video)
+
+
+@pytest.mark.skipif(
+    not (shutil.which("ffmpeg") and shutil.which("ffprobe")), reason="FFmpeg is optional"
+)
+def test_real_ffprobe_on_synthetic_software_fixture(tmp_path):
+    """Verify media tooling only; this is explicitly not evaluation footage."""
+    video = tmp_path / "synthetic-software-test.mp4"
+    subprocess.run(
+        [
+            shutil.which("ffmpeg"),
+            "-v",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "color=c=black:s=64x48:r=5:d=1",
+            "-c:v",
+            "mpeg4",
+            str(video),
+        ],
+        check=True,
+        capture_output=True,
+        timeout=30,
+    )
+    report = probe_video(video)
+    stream = report["ffprobe"]["streams"][0]
+    assert (stream["width"], stream["height"]) == (64, 48)
+    assert stream["avg_frame_rate"] == "5/1"
+    assert int(stream["nb_frames"]) == 5
+    assert report["content_reviewed"] is False

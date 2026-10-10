@@ -80,6 +80,12 @@ or an annotated demonstration. See PHASE_STATUS.md for actual execution status.
 
 ## Class semantics and licensing
 
+Inspection of the upstream
+[detection service](https://github.com/C-Nekopedia/SiteGuard/blob/main/apps/server/app/services/detection_service.py)
+found frame-wide helmet-presence gating and a `none` → missing-vest mapping.
+Neither establishes correct worker-to-PPE ownership or the meaning of ambiguous
+training labels. No source from that application is copied into this project.
+
 The [Construction-PPE documentation](https://docs.ultralytics.com/datasets/detect/construction-ppe/)
 lists `helmet`, `gloves`, `vest`, `boots`, `goggles`, `none`, `Person`, `no_helmet`,
 `no_goggle`, `no_gloves`, and `no_boots`. These expected labels must be compared

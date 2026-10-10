@@ -17,6 +17,10 @@ Synthetic software tests below are excluded from evaluation results.
 - Local result: 31 tests passed in 0.39 s; Ruff lint/format passed; `pip check`
   reported no broken requirements. CLI asset and baseline configuration validation passed.
 - These tests measure software behavior, not detection or safety accuracy.
+- Follow-up: added a real FFmpeg/ffprobe integration test using a generated
+  five-frame 64×48 software fixture, excluded from research data. All 32 local
+  tests passed in 4.18 s; wheel build passed. Initial six-job GitHub CI matrix
+  passed at commit `0ea80032e0560af04681f62a9e0a38ec8de97066` with 31 tests/job.
 
 ## MODEL-001 — static artifact inspection
 

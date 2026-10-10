@@ -20,6 +20,7 @@ def write_archive(path, entries):
             # construction to preserve adversarial archive bytes in this fixture.
             info = zipfile.ZipInfo("placeholder")
             info.filename = name
+            info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, data)
     return path
 
