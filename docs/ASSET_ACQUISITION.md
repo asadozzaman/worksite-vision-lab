@@ -5,7 +5,7 @@ belong under ignored `data/` and must not be committed.
 
 ## Acquired open-license alternatives
 
-To keep research progressing without automated Pexels collection, two Commons
+To keep research progressing without automated Pexels collection, three Commons
 files were downloaded through their published original-file links:
 
 - [Men at work in building site](https://commons.wikimedia.org/wiki/File:Men_at_work_in_building_site.webm),
