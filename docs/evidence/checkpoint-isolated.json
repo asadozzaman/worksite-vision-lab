@@ -1,0 +1,32 @@
+{
+  "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
+  "size_bytes": 5394437,
+  "names": {
+    "0": "helmet",
+    "1": "gloves",
+    "2": "vest",
+    "3": "boots",
+    "4": "goggles",
+    "5": "none",
+    "6": "Person",
+    "7": "no_helmet",
+    "8": "no_goggle",
+    "9": "no_gloves",
+    "10": "no_boots"
+  },
+  "parameter_count": 2508090,
+  "producer_version": "8.4.37",
+  "runtime_ultralytics": "8.4.173",
+  "torch": "2.7.0+cpu",
+  "python": "3.11.17",
+  "effective_end2end": true,
+  "mode_reason": "restore v8.4.37 missing _end2end default True; explicit in v8.4.173",
+  "official_yolo26n_state_dict_strict_match": true,
+  "embedded_license": "AGPL-3.0 (https://ultralytics.com/license)",
+  "load_mode": "weights_only=True, explicit reviewed allowlist, checksum pinned",
+  "smoke_input": "synthetic black 320x320 image; compatibility only",
+  "smoke_result_count": 1,
+  "smoke_box_count": 0,
+  "accuracy_reproduced": false,
+  "real_video_inference_performed": false
+}

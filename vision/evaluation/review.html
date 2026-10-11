@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worksite Vision Lab · Evidence review</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#101a23;color:#e6edf2}
+body{margin:0}header,main,footer{max-width:1180px;margin:auto;padding:20px}
+header{border-bottom:1px solid #34434e}h1{font-size:24px;margin:8px 0}p{line-height:1.5;color:#b7c9d6}
+.layout{display:grid;grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);gap:24px}
+canvas{max-width:100%;height:auto;background:#000;display:block;margin:auto;border:1px solid #526470}
+button,select,input{font:inherit;color:inherit;background:#223341;border:1px solid #5a7284;padding:8px;border-radius:5px}
+button{cursor:pointer}button:hover{background:#314b60}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #58dae7}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}input[type=range]{width:100%;padding:0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#172731;padding:14px;max-height:450px;overflow:auto}
+.badge{font-size:12px;color:#66d7e4;text-transform:uppercase;letter-spacing:1px}a{color:#72cddd}
+@media(max-width:760px){.layout{grid-template-columns:1fr}header,main,footer{padding:14px}}
+</style></head><body>
+<header><span class="badge">Worksite Vision Lab / Development evidence</span><h1 id="title"></h1>
+<p>Inspect original frames before enabling model overlays. Predictions and track IDs are not reference labels. All people are candidates; their occupation is not inferred.</p></header>
+<main><div class="layout"><section aria-label="Frame inspector"><canvas id="canvas"></canvas>
+<div class="controls"><button id="prev" aria-label="Previous frame">← Previous</button><button id="next" aria-label="Next frame">Next →</button>
+<label>Frame <input id="number" type="number" min="0" step="1" style="width:85px"></label><span id="time"></span></div>
+<input id="slider" type="range" min="0" step="1" aria-label="Video frame">
+<div class="controls"><label>Overlay <select id="overlay"><option value="none">None — raw frame</option><option value="detections">Detections</option></select></label></div>
+<p id="status" role="status"></p></section>
+<section><span class="badge">Observation record</span><h2>Exact frame evidence</h2><pre id="record"></pre>
+<h2>Reference annotation</h2><p>The companion <a href="reference-template.json" download>reference template</a> contains unreviewed, empty labels for every frame. Use it with your annotation workflow. Assign manual identities independently of tracker IDs. Sparse review cannot establish identity accuracy.</p>
+<p>Read <a href="manifest.json">the frozen input manifest</a>. Both clips are development data; a separate final test set is still needed. No accuracy or safety certification is implied.</p></section></div></main>
+<footer><p id="credit"></p></footer>
+<script>
+const bundle=/*DATA*/;
+const $=id=>document.getElementById(id), canvas=$('canvas'), ctx=canvas.getContext('2d');
+let current=0, request=0;
+$('title').textContent=bundle.title;$('credit').textContent=bundle.attribution;
+canvas.width=bundle.width;canvas.height=bundle.height;
+$('slider').max=$('number').max=bundle.frames.length-1;
+Object.keys(bundle.trackers).forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;$('overlay').appendChild(option)});
+function drawBox(box,label,color){ctx.strokeStyle=color;ctx.lineWidth=2;ctx.strokeRect(box[0],box[1],box[2]-box[0],box[3]-box[1]);ctx.font='12px sans-serif';ctx.fillStyle=color;ctx.fillText(label,Math.max(2,box[0]),Math.max(13,box[1]-3))}
+function show(index){current=Math.max(0,Math.min(bundle.frames.length-1,Math.trunc(Number(index)||0)));const token=++request;
+ const frame=bundle.frames[current], mode=$('overlay').value;
+ $('slider').value=$('number').value=current;$('time').textContent=(current/bundle.fps).toFixed(3)+' s';
+ $('prev').disabled=current===0;$('next').disabled=current===bundle.frames.length-1;
+ const record=mode==='none'?{frame_index:current,timestamp_seconds:current/bundle.fps,reference_reviewed:false}:mode==='detections'?frame:bundle.trackers[mode][current];
+ $('record').textContent=JSON.stringify(record,null,2);$('status').textContent='Loading frame…';
+ const image=new Image();image.onload=()=>{if(token!==request)return;ctx.drawImage(image,0,0);
+ if(mode==='detections')frame.detections.forEach(d=>drawBox(d.xyxy,d.class_name+' '+d.confidence.toFixed(2),'#ffe269'));
+ else if(mode!=='none')bundle.trackers[mode][current].tracks.forEach(t=>drawBox(t.xyxy,'ID '+t.track_id+' '+t.confidence.toFixed(2),'#62e8ef'));
+ $('status').textContent=mode==='none'?'Raw normalized frame. No model labels shown.':'Model output for inspection — not ground truth.'};
+ image.onerror=()=>{if(token===request)$('status').textContent='Frame failed to load. Keep the images folder beside this page.'};image.src='images/'+String(current).padStart(6,'0')+'.jpg';}
+$('prev').onclick=()=>show(current-1);$('next').onclick=()=>show(current+1);
+$('slider').oninput=e=>show(e.target.value);$('number').oninput=e=>show(e.target.value);$('overlay').onchange=()=>show(current);
+document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;if(e.key==='ArrowLeft')show(current-1);if(e.key==='ArrowRight')show(current+1)});show(0);
+</script></body></html>
