@@ -27,8 +27,8 @@ count is inferred from the tracking observations.
 
 ## Architecture and roadmap
 
-Video ingestion â†’ YOLO26 detections â†’ person-only tracking â†’ PPE association â†’
-temporal event engine â†’ SQLite/FastAPI â†’ React inspection dashboard.
+Video ingestion → YOLO26 detections → person-only tracking → PPE association →
+temporal event engine → SQLite/FastAPI → React inspection dashboard.
 
 Each component will use explicit frame indexes, timestamps, asset checksums,
 versioned configurations, and experiment IDs. Worker IDs are local to a video,
@@ -40,7 +40,7 @@ above, including detection and tracking, is currently implemented. See [implemen
 
 ## Install the foundation
 
-Python 3.10â€“3.12 is the initial target. Python 3.10 is tested locally on Windows;
+Python 3.10–3.12 is the initial target. Python 3.10 is tested locally on Windows;
 the Docker model inspector uses Python 3.11. The vision dependency set uses
 NumPy 1.26 and is not targeted at Python 3.13.
 
