@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][ValidateSet('building','street')][string]$Video,
-    [Parameter(Mandatory=$true)][ValidatePattern('^[a-z0-9][a-z0-9_-]+$')][string]$RunName
+    [Parameter(Mandatory=$true)][ValidatePattern('^[a-z0-9][a-z0-9_-]+$')][string]$RunName,
+    [ValidateRange(0.001,1)][double]$Confidence = 0.25
 )
 $ErrorActionPreference = 'Stop'
 $repoPath = Split-Path -Parent $PSScriptRoot
@@ -17,5 +18,6 @@ docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-
     --mount "type=bind,source=$outputPath,target=/output" `
     worksite-checkpoint-inspector:8.4.173 -m vision.detection.run `
     --model /input/model.pt --video "/videos/$Video.mp4" `
-    --normalization "/videos/$Video.json" --output "/output/$RunName"
+    --normalization "/videos/$Video.json" --output "/output/$RunName" `
+    --conf $Confidence.ToString([System.Globalization.CultureInfo]::InvariantCulture)
 if ($LASTEXITCODE -ne 0) { throw "Baseline failed (exit $LASTEXITCODE); inspect failure.json" }

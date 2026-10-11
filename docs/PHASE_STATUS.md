@@ -1,13 +1,13 @@
 # Phase status
 
-As of 2026-10-10 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
+As of 2026-10-11 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
 | Phase | Status | Evidence / remaining gate |
 |---|---|---|
 | 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
 | 1 — real detection baseline | Inference implemented and verified; reference evaluation partial | Two real clips, 298 frames, annotated videos, JSONL, CPU timing, repeatability and frame-linked qualitative failures. Human reference annotations/accuracy pending. |
-| 2 — tracking comparison | Not started | Next: person-only ByteTrack/BoT-SORT; distinguish detector misses from tracker errors. Human identity labels needed for formal scores. |
-| 3 — failure analysis | Partially implemented | Initial frame-linked observations and three untested hypotheses recorded; no controlled tuning experiments yet. |
+| 2 — tracking comparison | Implemented and verified with observational proxies; formal evaluation pending | Both trackers on both clips, person-only records/videos, 12 replays and repeatability. No human identity labels or formal scores. |
+| 3 — failure analysis | Partially implemented and executed | Three controlled diagnostic variants, provisional failure records and frame viewer; labeled accuracy comparisons remain pending. |
 | 4 — event reliability | Not started | Needs validated association and frozen reference events. |
 | 5 — API/dashboard | Not started | No mock application or invented metrics. |
 | 6 — release validation | Not started | Requires full platform integration and end-to-end validation. |
@@ -70,15 +70,53 @@ Evidence: `experiments/results/`, `experiments/reports/BASELINE_CPU.md`,
 `docs/evidence/`. Local binary artifacts: `data/runs/building-baseline/` and
 `data/runs/street-baseline/`. See BASELINE_REPRODUCTION.md for exact commands.
 
+## Phases 2 and 3
+
+**Objective:** track people independently of gear, compare identical inputs and
+investigate failures before safety-event logic.
+
+Implemented persistent person-only ByteTrack/BoT-SORT adapters, hash-verified
+offline detection replay, explicit configs, aligned JSONL/video, CPU/RSS sampling,
+track lifetime/gap observations, artifact validation and raw-frame review export.
+Every empty frame updates tracker state. Each video runs in its own process;
+upstream process-global ID allocation prevents safe interleaved in-process streams.
+
+Four baseline replays, four conf0.10 replays, a no-GMC variant, a short-buffer
+variant and two repeats completed: 1,824 tracking frames total. Two additional
+real detector runs supplied lower-threshold inputs. All artifact hashes, timestamps
+and decoded annotated-video lengths verified. Both street repeats are byte-identical.
+
+Street no-track frames: ByteTrack112/167 and BoT-SORT104/167 at conf0.25; both97/167
+at conf0.10. No accuracy conclusion follows. Observed duplicate IDs32/33 at street
+frame125 overlap one visible worker; input also has overlapping detector boxes.
+Three predeclared diagnostic changes and contrary/ambiguous findings are preserved.
+
+Evidence: `experiments/reports/TRACKING_COMPARISON.md`, `experiments/results/tracking/`,
+and local `data/tracking/`. All298 source frames are exported for review under
+`data/review/`; templates remain explicitly unreviewed. Browser navigation, overlay
+switching and timestamp alignment tested. Review control event bug fixed/rechecked.
+
+Limitations: no human reference identities, formal ID-switch/IDF1/HOTA/MOTA scores,
+event truth, or reliability improvement. Clips are development data; a separate
+held-out source is still needed. CPU timings vary with host load and exclude
+detector inference during replay. No GPU execution or training.
+
 ## Tests and external execution
 
-44 tests pass locally on Windows/Python 3.10; Ruff lint/format pass. Foundation
+54 foundation tests pass locally on Windows/Python 3.10; vision integration is
+skipped in the lightweight environment. The separate 17-test tracking suite passes
+on Windows/Python3.10 and Linux Docker/Python3.11, including replay alignment,
+checksum rejection, existing-output protection and truncated-input failure records.
+Ten validation tests overlap both suites; these are not71 distinct tests.
+Ruff lint/format pass. Foundation
 editable install, wheel build and dependency check passed. Actual FFmpeg integration
 uses a labeled synthetic software fixture, excluded from research evaluation.
 Six-job Windows/Linux Python 3.10–3.12 Actions matrices passed for commits
 `0ea80032e0560af04681f62a9e0a38ec8de97066` and
 `1fcc2c8f6dd3d9f3a4922e4e7356ad063b7e140a`.
-Current baseline changes require their own Actions run; see PR checks for latest status.
+Detection baseline commit `623489424847fbbee6cf606d24b6d6370d9d4368` passed both
+push and PR CI matrices. Tracking adds a separate vision integration job; see PR
+checks for actual status on the current head.
 
 GitHub: authenticated push permission verified for `asadozzaman/worksite-vision-lab`.
 The new repository had no history. Empty base commit `a5f8ce3` initializes main;
@@ -98,7 +136,11 @@ normalization/Docker run scripts, detection-record tests, measured structured
 results and evidence reports. Checkpoints, videos, credentials and private assets
 remain excluded from Git.
 
-Next: obtain human review of the frame-linked reference subset, then compare
-person-only trackers on frozen inputs. Investigate official person-detector fallback
-before attributing missing detections to tracking. No training is currently justified.
+Tracking additions: `vision/tracking/`, `vision/evaluation/`, replay/review/validation
+scripts, Docker layer, tracker configs/tests, measured results and comparison report.
+PR #1 remains the review location; no merge was performed.
+
+Next: human review of the exported contiguous reference frames, frozen identity
+and box annotations, and a distinct held-out scene. Use these to evaluate detector
+duplicates/person fallback before PPE association or alert tuning. No training is justified.
 Do not claim later phases complete until their code and experiments actually run.

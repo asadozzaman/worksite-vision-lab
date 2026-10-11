@@ -4,8 +4,9 @@ An open-source research project for construction video detection, worker trackin
 and evidence-based PPE event review. The aim is to measure failures and alert
 reliability before building a client-facing video intelligence application.
 
-**Current status: real-video CPU detection baseline executed; research prototype.**
-Two licensed clips (298 frames) have annotated outputs and per-frame records.
+**Current status: real-video detection and person tracking executed; research prototype.**
+Two licensed clips (298 frames) have detection and ByteTrack/BoT-SORT outputs,
+three diagnostic experiments, and a frame-exact evidence viewer.
 No detection accuracy, tracking score, or event reliability has been measured.
 See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 
@@ -17,10 +18,12 @@ See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 - Environment diagnostics, unit tests, and a Windows/Linux CI configuration.
 - An isolated, checksum-pinned YOLO26n loader and verified architecture/class metadata.
 - Real-video normalization and detection CLI with annotated video, JSONL and run manifests.
+- Person-only ByteTrack/BoT-SORT replay with frozen detections, explicit settings and repeat checks.
+- Local frame review, switchable overlays, failure cases and unreviewed reference templates.
 
-The tracking comparison, safety event engine, API, and React dashboard are subsequent
-gated phases. Human reference annotation remains pending. There are no sample business metrics or
-fabricated events in this repository.
+The safety event engine, API, and React dashboard are subsequent gated phases.
+Human reference annotation remains pending. No accuracy improvement or unique-worker
+count is inferred from the tracking observations.
 
 ## Architecture and roadmap
 
@@ -33,7 +36,7 @@ not biometric or cross-video identities. Unobserved PPE remains unknown.
 
 Planned stack: Ultralytics YOLO26, PyTorch, OpenCV, ByteTrack/BoT-SORT,
 FastAPI/Pydantic/SQLite, React/TypeScript/Vite. Only the foundation described
-above, including detection, is currently implemented. See [implementation plan](docs/IMPLEMENTATION_PLAN.md).
+above, including detection and tracking, is currently implemented. See [implementation plan](docs/IMPLEMENTATION_PLAN.md).
 
 ## Install the foundation
 
@@ -89,10 +92,33 @@ Run `./scripts/run_baseline.ps1 -Video building -RunName my-building-run` after
 settings, output definitions and measured results. Annotated videos are local under
 `data/runs/`, excluded from Git; structured observations are in `experiments/results/`.
 
+## Tracking and evidence review
+
+```powershell
+docker build -f docker/tracking.Dockerfile -t worksite-tracking:8.4.173 .
+./scripts/run_tracking.ps1 -Video building -Tracker bytetrack -RunName my-building-tracks
+```
+
+The tracking image extends the baseline image. See [tracking reproduction](docs/TRACKING_REPRODUCTION.md)
+for both trackers, controlled variants and the raw-frame review exporter.
+The viewer opens real normalized frames with optional detector/tracker overlays;
+its empty reference templates are not ground truth.
+
+On the street clip, baseline ByteTrack emitted no tracks on112/167 frames and
+BoT-SORT on104/167. Lower detector confidence reduced these to97/167 for both.
+These are output-coverage observations, not recall or proof of improved identities.
+Both street tracker reruns produced byte-identical records. Visual review found
+missed people and a suspected duplicate track on one worker.
+
+See the [tracking comparison](experiments/reports/TRACKING_COMPARISON.md) for all12
+runs, resource/timing definitions, failure cases and the remaining annotation gate.
+Cached tracking FPS excludes detector inference and must not be compared directly
+with the end-to-end detection baseline above.
+
 ## Research method
 
 Establish real-video detection before tuning. Freeze manually reviewed annotation
-subsets before comparing trackers or temporal alert rules. Keep the model, input
+subsets before accuracy-based tracker selection or temporal alert evaluation. Keep the model, input
 frames, device, thresholds, and resolution identical for controlled comparisons.
 Separate observations and proxy counts from metrics with ground truth. Never use
 tracker IDs as reference identities or missing detections as proof of missing PPE.

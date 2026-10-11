@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "tracker": {
+    "tracker_type": "bytetrack",
+    "track_high_thresh": 0.25,
+    "track_low_thresh": 0.1,
+    "new_track_thresh": 0.25,
+    "track_buffer": 5,
+    "match_thresh": 0.8,
+    "fuse_score": true,
+    "gmc_method": "sparseOptFlow",
+    "proximity_thresh": 0.5,
+    "appearance_thresh": 0.8,
+    "with_reid": false,
+    "model": "auto"
+  },
+  "person_class_id": 6,
+  "source_video_sha256": "d27da60077cb9a8b41f0ffde748026f9b6f213c430979875a0df1f4f0a6d7d53",
+  "source_detections_sha256": "b973ca43de30a28e6422c7a6610d14ce9c10c26a541b649968d951ecae7e1a85",
+  "source_baseline_summary_sha256": "f400ce30fcbba3a0f551323bd86e328960c1f9802724fb82d2317fe8a5b925c4",
+  "source_model": {
+    "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
+    "size_bytes": 5394437,
+    "names": {
+      "0": "helmet",
+      "1": "gloves",
+      "2": "vest",
+      "3": "boots",
+      "4": "goggles",
+      "5": "none",
+      "6": "Person",
+      "7": "no_helmet",
+      "8": "no_goggle",
+      "9": "no_gloves",
+      "10": "no_boots"
+    },
+    "parameter_count": 2508090,
+    "producer_version": "8.4.37",
+    "runtime_ultralytics": "8.4.173",
+    "torch": "2.7.0+cpu",
+    "python": "3.11.17",
+    "effective_end2end": true,
+    "mode_reason": "restore v8.4.37 missing _end2end default True; explicit in v8.4.173",
+    "official_yolo26n_state_dict_strict_match": true,
+    "embedded_license": "AGPL-3.0 (https://ultralytics.com/license)",
+    "load_mode": "weights_only=True, explicit reviewed allowlist, checksum pinned"
+  },
+  "source_detector_parameters": {
+    "imgsz": 640,
+    "conf": 0.25,
+    "iou": 0.7,
+    "max_det": 300,
+    "device": "cpu",
+    "verbose": false,
+    "save": false,
+    "end2end": true,
+    "threads": 2,
+    "seed": 0
+  },
+  "code_sha256": {
+    "adapter.py": "739535061bbb2afbe93bec44db88891134ca2c0d8920cc4f1787404110dc8580",
+    "config.py": "c849fc5afcd2c3a51f6c9e11d21c43bcdf177f9bb802f2f87cbef3cc8ac665c2",
+    "records.py": "5d954679bcbe105d1d7cdc3926d9ffccc37faef4c39d0e873bd52db176eaa68a",
+    "run.py": "3a1206e54c0511e67e4a6e8c30541b3dde7afa3a745bbd4bfa60738743f5be7d",
+    "__init__.py": "400acef6b7451957cbbfc21747ee33212a42f8168eacc87cda4eb1c9972a7698"
+  },
+  "frame_count": 131,
+  "fps": 25.0,
+  "width": 360,
+  "height": 640,
+  "processing_seconds": 11.703429432998746,
+  "processing_fps": 11.19330028432821,
+  "tracker_update_seconds": 5.428207904011288,
+  "tracker_update_fps": 24.13319502799346,
+  "process_cpu_seconds": 23.200056501,
+  "peak_sampled_process_rss_bytes": 290217984,
+  "timing_scope": "replay decode/validate/track/render/write; EXCLUDES model inference and imports",
+  "memory_scope": "process RSS sampled after imports and each frame; includes loaded libraries",
+  "threads": 2,
+  "seed": 0,
+  "runtime": {
+    "ultralytics": "8.4.173",
+    "opencv": "4.11.0",
+    "numpy": "1.26.4",
+    "python": "3.11.17"
+  },
+  "low_confidence_pass_available": false,
+  "observations": {
+    "emitted_track_ids": 4,
+    "track_box_observations": 193,
+    "person_detection_observations": 205,
+    "frames_without_tracks": 0,
+    "frames_without_person_detections": 0,
+    "within_id_gap_count": 7,
+    "tracks": [
+      {
+        "track_id": 1,
+        "first_frame": 0,
+        "last_frame": 52,
+        "observed_frames": 43,
+        "span_seconds": 2.12,
+        "gaps": [
+          {
+            "after_frame": 34,
+            "before_frame": 39,
+            "missing_frames": 4
+          },
+          {
+            "after_frame": 39,
+            "before_frame": 43,
+            "missing_frames": 3
+          },
+          {
+            "after_frame": 44,
+            "before_frame": 46,
+            "missing_frames": 1
+          },
+          {
+            "after_frame": 49,
+            "before_frame": 52,
+            "missing_frames": 2
+          }
+        ]
+      },
+      {
+        "track_id": 2,
+        "first_frame": 3,
+        "last_frame": 9,
+        "observed_frames": 7,
+        "span_seconds": 0.28,
+        "gaps": []
+      },
+      {
+        "track_id": 9,
+        "first_frame": 34,
+        "last_frame": 130,
+        "observed_frames": 97,
+        "span_seconds": 3.88,
+        "gaps": []
+      },
+      {
+        "track_id": 12,
+        "first_frame": 71,
+        "last_frame": 123,
+        "observed_frames": 46,
+        "span_seconds": 2.12,
+        "gaps": [
+          {
+            "after_frame": 83,
+            "before_frame": 85,
+            "missing_frames": 1
+          },
+          {
+            "after_frame": 106,
+            "before_frame": 108,
+            "missing_frames": 1
+          },
+          {
+            "after_frame": 115,
+            "before_frame": 121,
+            "missing_frames": 5
+          }
+        ]
+      }
+    ],
+    "definitions": {
+      "emitted_track_ids": "distinct emitted video-local IDs; NOT unique real workers",
+      "within_id_gap_count": "gaps between observations of same ID; NOT fragmentation or ID switches",
+      "span_seconds": "inclusive first-to-last frame span; includes unobserved gaps"
+    },
+    "ground_truth": null,
+    "identity_accuracy_measured": false
+  },
+  "output_hashes": {
+    "tracks.jsonl": "1797d2f094f92f4ac9d00c04378d88cb0839841a7b3e304c686d73cccc576d4f",
+    "annotated.mp4": "c4056c1009f6a6e9d463654aad8586075e4f7405f71bf57124e2fc9175a9b168"
+  }
+}

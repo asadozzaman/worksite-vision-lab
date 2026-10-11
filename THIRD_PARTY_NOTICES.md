@@ -16,6 +16,7 @@ is included in the source repository.
 | Commons: Manual workers 2026 | [Source declaration](https://commons.wikimedia.org/wiki/File:Manual_workers_2026.webm), CC BY 4.0 | KabanDanish, 2026-08-23. Credit author/source/license and identify changes. Acquired locally, not committed. |
 | PyTorch / torchvision | [PyTorch license](https://github.com/pytorch/pytorch/blob/main/LICENSE), [torchvision license](https://github.com/pytorch/vision/blob/main/LICENSE) | BSD-style upstream licenses and bundled notices apply. |
 | NumPy | [License](https://github.com/numpy/numpy/blob/main/LICENSE.txt) | BSD-3-Clause and bundled notices. |
+| lap 0.5.12 | [PyPI distribution](https://pypi.org/project/lap/0.5.12/), bundled BSD-2-Clause license | Linear assignment solver used by the tracker; retain upstream notices. |
 | OpenCV Python | [Packaging license](https://github.com/opencv/opencv-python/blob/master/LICENSE.txt), upstream OpenCV/bundled library notices | Keep package notices; wheel bundles have separate licenses. |
 | Pydantic | [License](https://github.com/pydantic/pydantic/blob/main/LICENSE) | MIT. |
 | pytest / Ruff / Hatchling | Respective installed distribution license metadata | Development/build tools; retain their distribution licenses. |

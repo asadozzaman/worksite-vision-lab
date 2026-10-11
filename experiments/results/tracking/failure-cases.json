@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "reviewer": "assistant visual inspection",
+  "human_reviewed": false,
+  "taxonomy": {
+    "detection": ["false_positive", "false_negative", "wrong_class", "low_confidence", "small_object", "blur", "poor_lighting", "occlusion", "truncation", "duplicate_box"],
+    "tracking": ["identity_switch", "fragmentation", "lost_person", "duplicate_track", "incorrect_reacquisition", "association_error"]
+  },
+  "cases": [
+    {
+      "id": "building-cropped-person-50",
+      "video_sha256": "d27da60077cb9a8b41f0ffde748026f9b6f213c430979875a0df1f4f0a6d7d53",
+      "frame_index": 50,
+      "timestamp_seconds": 2.0,
+      "run": "building-bytetrack",
+      "categories": ["false_negative", "truncation", "lost_person"],
+      "expected": "Visible foreground and cropped right-side people are considered separately.",
+      "actual": "ID9 on foreground person; no right-side track. Input contains only one Person box.",
+      "suspected_cause": "Detector truncation sensitivity rather than a demonstrated identity association error.",
+      "evidence": "data/tracking/building-bytetrack/frame-000050.jpg",
+      "proposed_experiment": "Review person boxes, then compare official person fallback on identical frames."
+    },
+    {
+      "id": "street-missing-people-75",
+      "video_sha256": "d49e4840f65f5f99f9421cf76fa06b7cacf7accc011494330c745fbdee1b84b1",
+      "frame_index": 75,
+      "timestamp_seconds": 3.0,
+      "run": "street-botsort",
+      "categories": ["false_negative", "blur", "occlusion", "low_confidence"],
+      "expected": "Visible people should be considered despite partial barriers and camera motion.",
+      "actual": "No baseline person boxes or tracks. At conf0.10 a weak Person~0.11 spans an ambiguous region.",
+      "suspected_cause": "Blur, partial visibility and weak detector confidence.",
+      "evidence": "data/runs/street-conf010/frame-000075.jpg",
+      "proposed_experiment": "T1 executed for observational continuity; human boxes needed to judge new detection correctness."
+    },
+    {
+      "id": "street-duplicate-worker-125",
+      "video_sha256": "d49e4840f65f5f99f9421cf76fa06b7cacf7accc011494330c745fbdee1b84b1",
+      "frame_index": 125,
+      "timestamp_seconds": 5.0,
+      "run": "street-botsort",
+      "categories": ["duplicate_box", "duplicate_track"],
+      "expected": "One visible worker should not receive multiple simultaneous tracking identities.",
+      "actual": "IDs32 and33 overlap the same visible high-visibility worker; input has overlapping Person boxes~0.295 and~0.653.",
+      "suspected_cause": "Duplicate detector boxes propagate into tracker association; exact causal attribution needs further evaluation.",
+      "evidence": "data/tracking/street-botsort/frame-000125.jpg",
+      "proposed_experiment": "Freeze person reference boxes and compare explicit person-box deduplication; check suppression errors in crowds."
+    }
+  ]
+}

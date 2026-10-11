@@ -19,6 +19,7 @@ vision = [
     "torchvision==0.22.0",
     "numpy==1.26.4",
     "opencv-python==4.11.0.86",
+    "lap==0.5.12",
 ]
 
 [project.scripts]

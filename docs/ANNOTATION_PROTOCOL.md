@@ -1,7 +1,10 @@
 # Reference annotation protocol
 
-Planned protocol, not completed annotation. No frames or worker identities have
-been labeled yet. This document defines the evidence needed for later phases.
+Protocol, not completed annotation. Raw-frame review bundles now exist for all298
+normalized frames under `data/review/`; no human worker identities have been labeled.
+Templates are empty and explicitly unreviewed, never confirmed negative examples.
+See [export/review instructions](TRACKING_REPRODUCTION.md). This document defines
+the evidence needed for accuracy-based comparisons and later phases.
 
 ## Input freeze and review
 

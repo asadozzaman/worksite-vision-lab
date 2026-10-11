@@ -24,3 +24,16 @@ jobs:
       - run: python -m pytest
       - run: worksite validate-assets docs/assets.json
       - run: worksite validate-config experiments/configs/baseline-cpu.json
+  tracker-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install '.[vision,dev]'
+      - run: python -m pytest tests/test_tracking_integration.py tests/test_tracking_records.py
+        env:
+          YOLO_AUTOINSTALL: 'false'
