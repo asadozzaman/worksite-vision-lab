@@ -14,7 +14,7 @@ docker build -f docker/tracking.Dockerfile -t worksite-tracking:8.4.173 .
 ```
 
 The first image can be reused from baseline work. The tracking layer adds pinned
-lap0.5.12, Pydantic2.13.4 and pytest9.0.3. Observed complete package versions are
+lap 0.5.12, Pydantic 2.13.4 and pytest 9.0.3. Observed complete package versions are
 recorded separately; the image is not claimed to be bit-reproducible across future
 APT/package-index changes. Inference and tracking run offline with a read-only
 root filesystem, no capabilities, non-root UID, 2 CPUs and 2GiB RAM.

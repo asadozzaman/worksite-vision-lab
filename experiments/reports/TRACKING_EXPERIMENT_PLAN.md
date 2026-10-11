@@ -7,8 +7,8 @@ observational diagnostics, not accuracy acceptance criteria or model selection.
 Do not promote a configuration as better on these proxies alone.
 
 Fixed: checkpoint SHA `b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3`,
-normalized clip bytes from baseline manifests, 25 fps, 360×640, model imgsz640,
-Ultralytics8.4.173, two CPU threads and two-CPU/2 GiB container limit. Record timing
+normalized clip bytes from baseline manifests, 25 fps, 360×640, model imgsz 640,
+Ultralytics 8.4.173, two CPU threads and two-CPU/2 GiB container limit. Record timing
 separately for inference and cached tracking. Run sequentially; no paid compute.
 
 | Experiment | Observed motivation and hypothesis | Single changed variable | Predeclared observable | Budget |
@@ -23,5 +23,5 @@ applications running. Record all results including null or contrary findings.
 
 Source: [version-pinned BYTETracker implementation](https://github.com/ultralytics/ultralytics/blob/v8.4.173/ultralytics/trackers/byte_tracker.py),
 [BoT-SORT implementation](https://github.com/ultralytics/ultralytics/blob/v8.4.173/ultralytics/trackers/bot_sort.py).
-The pinned version uses buffer directly in frames (30 = 1.2s at25fps); do not
+The pinned version uses buffer directly in frames (30 = 1.2s at 25 fps); do not
 assume older API's frame-rate scaling. ReID is explicitly off.

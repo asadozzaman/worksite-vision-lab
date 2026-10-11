@@ -104,13 +104,13 @@ for both trackers, controlled variants and the raw-frame review exporter.
 The viewer opens real normalized frames with optional detector/tracker overlays;
 its empty reference templates are not ground truth.
 
-On the street clip, baseline ByteTrack emitted no tracks on112/167 frames and
-BoT-SORT on104/167. Lower detector confidence reduced these to97/167 for both.
+On the street clip, baseline ByteTrack emitted no tracks on 112/167 frames and
+BoT-SORT on 104/167. Lower detector confidence reduced these to 97/167 for both.
 These are output-coverage observations, not recall or proof of improved identities.
 Both street tracker reruns produced byte-identical records. Visual review found
 missed people and a suspected duplicate track on one worker.
 
-See the [tracking comparison](experiments/reports/TRACKING_COMPARISON.md) for all12
+See the [tracking comparison](experiments/reports/TRACKING_COMPARISON.md) for all 12
 runs, resource/timing definitions, failure cases and the remaining annotation gate.
 Cached tracking FPS excludes detector inference and must not be compared directly
 with the end-to-end detection baseline above.

@@ -88,25 +88,25 @@ No failure hypotheses or performance improvements are claimed before observation
 
 - Pinned source inspected for adapter signature, returned box layout, empty-frame
   updates, score bands, process-global IDs and direct frame buffer semantics.
-- Added lap0.5.12 explicitly; baseline image lacked it. Auto-install disabled.
+- Added lap 0.5.12 explicitly; baseline image lacked it. Auto-install disabled.
 - Four baseline replays: both trackers, both clips, byte-identical detector inputs.
 - Predeclared T1/T2/T3 in TRACKING_EXPERIMENT_PLAN.md; all executed and retained.
-- T1: conf0.10 fresh detection runs, both trackers. Street no-person frames92→69;
-  no-track frames ByteTrack112→97, BoT-SORT104→97. No recall/precision truth.
-- T2: BoT-SORT street GMC off: IDs9→12, no-track frames104→112, gaps20→11.
+- T1: conf 0.10 fresh detection runs, both trackers. Street no-person frames 92→69;
+  no-track frames ByteTrack 112→97, BoT-SORT 104→97. No recall/precision truth.
+- T2: BoT-SORT street GMC off: IDs 9→12, no-track frames 104→112, gaps 20→11.
   Fewer gaps alongside fewer observations is not an improvement claim.
-- T3: building buffer30→5: IDs3→4; original ID1 gap52→69 replaced by new ID12
-  by frame75 in short-buffer output. No manually scored identity switch.
+- T3: building buffer 30→5: IDs 3→4; original ID 1 gap 52→69 replaced by new ID 12
+  by frame 75 in short-buffer output. No manually scored identity switch.
 - Both street baseline repeats produce byte-identical JSONL; timings vary notably
   with host workload. Evidence export overlapped portions of later runs.
-- All12 annotated videos /1,824 records validated for counts, timestamp alignment
-  and hashes. RSS approximately276–281MiB, sampling includes loaded libraries.
-- Provisional visual duplicate-worker case: street125, BoT-SORT IDs32/33; detector
+- All 12 annotated videos  / 1,824 records validated for counts, timestamp alignment
+  and hashes. RSS approximately 276–281MiB, sampling includes loaded libraries.
+- Provisional visual duplicate-worker case: street 125, BoT-SORT IDs 32/33; detector
   already supplied overlapping boxes. No automatic deduplication applied.
-- Exported298 raw frames, original-model overlays, manifests and empty reference
+- Exported 298 raw frames, original-model overlays, manifests and empty reference
   templates. Fixed number-input change-event issue and verified browser navigation.
 - Docker Desktop was stopped when a resumed validation call attempted to connect;
   started it normally and reran the expanded suite.17 tests passed on Windows and
-  Linux Docker. Lightweight environment54 pass, vision integration intentionally skips.
+  Linux Docker. Lightweight environment 54 pass, vision integration intentionally skips.
 - No human labels, formal tracking accuracy, safety events, GPU or training results.
   Details and exact configs: TRACKING_COMPARISON.md and TRACKING_REPRODUCTION.md.

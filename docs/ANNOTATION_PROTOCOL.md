@@ -1,6 +1,6 @@
 # Reference annotation protocol
 
-Protocol, not completed annotation. Raw-frame review bundles now exist for all298
+Protocol, not completed annotation. Raw-frame review bundles now exist for all 298
 normalized frames under `data/review/`; no human worker identities have been labeled.
 Templates are empty and explicitly unreviewed, never confirmed negative examples.
 See [export/review instructions](TRACKING_REPRODUCTION.md). This document defines

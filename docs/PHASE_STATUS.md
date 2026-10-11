@@ -81,18 +81,18 @@ track lifetime/gap observations, artifact validation and raw-frame review export
 Every empty frame updates tracker state. Each video runs in its own process;
 upstream process-global ID allocation prevents safe interleaved in-process streams.
 
-Four baseline replays, four conf0.10 replays, a no-GMC variant, a short-buffer
+Four baseline replays, four conf 0.10 replays, a no-GMC variant, a short-buffer
 variant and two repeats completed: 1,824 tracking frames total. Two additional
 real detector runs supplied lower-threshold inputs. All artifact hashes, timestamps
 and decoded annotated-video lengths verified. Both street repeats are byte-identical.
 
-Street no-track frames: ByteTrack112/167 and BoT-SORT104/167 at conf0.25; both97/167
-at conf0.10. No accuracy conclusion follows. Observed duplicate IDs32/33 at street
-frame125 overlap one visible worker; input also has overlapping detector boxes.
+Street no-track frames: ByteTrack 112/167 and BoT-SORT 104/167 at conf 0.25; both 97/167
+at conf 0.10. No accuracy conclusion follows. Observed duplicate IDs 32/33 at street
+frame 125 overlap one visible worker; input also has overlapping detector boxes.
 Three predeclared diagnostic changes and contrary/ambiguous findings are preserved.
 
 Evidence: `experiments/reports/TRACKING_COMPARISON.md`, `experiments/results/tracking/`,
-and local `data/tracking/`. All298 source frames are exported for review under
+and local `data/tracking/`. All 298 source frames are exported for review under
 `data/review/`; templates remain explicitly unreviewed. Browser navigation, overlay
 switching and timestamp alignment tested. Review control event bug fixed/rechecked.
 
@@ -105,9 +105,9 @@ detector inference during replay. No GPU execution or training.
 
 54 foundation tests pass locally on Windows/Python 3.10; vision integration is
 skipped in the lightweight environment. The separate 17-test tracking suite passes
-on Windows/Python3.10 and Linux Docker/Python3.11, including replay alignment,
+on Windows/Python 3.10 and Linux Docker/Python 3.11, including replay alignment,
 checksum rejection, existing-output protection and truncated-input failure records.
-Ten validation tests overlap both suites; these are not71 distinct tests.
+Ten validation tests overlap both suites; these are not 71 distinct tests.
 Ruff lint/format pass. Foundation
 editable install, wheel build and dependency check passed. Actual FFmpeg integration
 uses a labeled synthetic software fixture, excluded from research evaluation.
@@ -115,8 +115,9 @@ Six-job Windows/Linux Python 3.10–3.12 Actions matrices passed for commits
 `0ea80032e0560af04681f62a9e0a38ec8de97066` and
 `1fcc2c8f6dd3d9f3a4922e4e7356ad063b7e140a`.
 Detection baseline commit `623489424847fbbee6cf606d24b6d6370d9d4368` passed both
-push and PR CI matrices. Tracking adds a separate vision integration job; see PR
-checks for actual status on the current head.
+push and PR CI matrices. Tracking implementation commit
+`7b6b8841731e15000bd7112cc10c4cbe52872207` passed both seven-job workflows,
+including the new tracker integration job. See PR checks for current-head status.
 
 GitHub: authenticated push permission verified for `asadozzaman/worksite-vision-lab`.
 The new repository had no history. Empty base commit `a5f8ce3` initializes main;
