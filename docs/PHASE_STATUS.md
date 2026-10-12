@@ -125,6 +125,8 @@ foundation, detection and tracking were merged through
 [PR #1](https://github.com/asadozzaman/worksite-vision-lab/pull/1) with explicit user
 approval. The squash commit on main is `e1eefd9052c4fb74a617d9ca01968bfccdfa4762`.
 The next annotation workflow is developed separately on `feat/reference-annotation-workflow`.
+Implementation commit: `fea452b`. Review: [PR #2](https://github.com/asadozzaman/worksite-vision-lab/pull/2),
+open for review; no merge of this new work has been performed.
 
 No Kaggle connector/execution action was exposed when checked; discovery returned
 no Kaggle result. No hosted notebook, GPU job, training or external paid compute ran.
