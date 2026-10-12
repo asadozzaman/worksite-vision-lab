@@ -110,3 +110,24 @@ No failure hypotheses or performance improvements are claimed before observation
   Linux Docker. Lightweight environment 54 pass, vision integration intentionally skips.
 - No human labels, formal tracking accuracy, safety events, GPU or training results.
   Details and exact configs: TRACKING_COMPARISON.md and TRACKING_REPRODUCTION.md.
+
+## ANNOTATION-001 — person reference workflow (2026-10-12)
+
+- PR #1 merged with user approval; main synchronized to e1eefd9. Annotation work
+  isolated on feat/reference-annotation-workflow.
+- Added manual person boxes and identities, copy-forward without review, coordinate
+  correction, exclusion notes, selected contiguous intervals, JSON save/import and
+  browser draft caching. Model overlays remain hidden initially.
+- Version 2 documents bind to source manifest/video/dimensions/frame count. Explicit
+  no-person confirmation is required for reviewed empty frames. Edits invalidate
+  review/attestation. Nonhuman drafts cannot claim human attestation.
+- Added validate-reference and freeze-reference commands. Freeze verifies source
+  JPEG hashes, retains exact submitted JSON bytes and refuses output overwrites.
+  It records a reviewer declaration, not independently audited label quality.
+- Exported both real clips to data/annotation/ (298 frames). Browser test exercised
+  drawing, unresolved-ID rejection, identity assignment, copy-forward, invalid box
+  rejection, download, undo, reopen and wrong-clip rejection. Downloaded software
+  fixture validated in Python and was correctly refused by freeze. Reset draft.
+- 79 local foundation tests pass, seven Node tests pass, Ruff passes. Lightweight
+  environment skips vision integration; dedicated existing CI job retained.
+- Human labels, accuracy metrics, held-out scene, PPE events and training still pending.

@@ -12,6 +12,7 @@ from pydantic import ValidationError
 from vision.checkpoint import inspect_checkpoint
 from vision.config import ExperimentConfig
 from vision.environment import environment_report
+from vision.evaluation.reference import freeze_reference, reference_status, validate_reference
 from vision.provenance import AssetManifest
 from vision.video import probe_video
 
@@ -28,6 +29,13 @@ def main(argv: list[str] | None = None) -> int:
     ):
         subparser = commands.add_parser(command, help=help_text)
         subparser.add_argument("path", type=Path)
+    for command in ("validate-reference", "freeze-reference"):
+        subparser = commands.add_parser(command, help="validate or freeze a person reference")
+        subparser.add_argument("path", type=Path)
+        subparser.add_argument("--manifest", type=Path, required=True)
+        if command == "freeze-reference":
+            subparser.add_argument("--images", type=Path, required=True)
+            subparser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -36,6 +44,11 @@ def main(argv: list[str] | None = None) -> int:
             result = inspect_checkpoint(args.path)
         elif args.command == "probe-video":
             result = probe_video(args.path)
+        elif args.command == "validate-reference":
+            reference, _ = validate_reference(args.path, args.manifest)
+            result = reference_status(reference)
+        elif args.command == "freeze-reference":
+            result = freeze_reference(args.path, args.manifest, args.images, args.output)
         else:
             schema = AssetManifest if args.command == "validate-assets" else ExperimentConfig
             validated = schema.model_validate_json(args.path.read_text(encoding="utf-8"))

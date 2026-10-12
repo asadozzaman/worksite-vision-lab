@@ -6,7 +6,7 @@ reliability before building a client-facing video intelligence application.
 
 **Current status: real-video detection and person tracking executed; research prototype.**
 Two licensed clips (298 frames) have detection and ByteTrack/BoT-SORT outputs,
-three diagnostic experiments, and a frame-exact evidence viewer.
+three diagnostic experiments, and a frame-exact person annotation editor.
 No detection accuracy, tracking score, or event reliability has been measured.
 See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 
@@ -19,7 +19,8 @@ See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 - An isolated, checksum-pinned YOLO26n loader and verified architecture/class metadata.
 - Real-video normalization and detection CLI with annotated video, JSONL and run manifests.
 - Person-only ByteTrack/BoT-SORT replay with frozen detections, explicit settings and repeat checks.
-- Local frame review, switchable overlays, failure cases and unreviewed reference templates.
+- Local person-box editing, manual identity continuity, JSON save/reopen and source-bound validation.
+- Explicit frame review and human-attestation gates for freezing annotation versions.
 
 The safety event engine, API, and React dashboard are subsequent gated phases.
 Human reference annotation remains pending. No accuracy improvement or unique-worker
@@ -101,8 +102,9 @@ docker build -f docker/tracking.Dockerfile -t worksite-tracking:8.4.173 .
 
 The tracking image extends the baseline image. See [tracking reproduction](docs/TRACKING_REPRODUCTION.md)
 for both trackers, controlled variants and the raw-frame review exporter.
-The viewer opens real normalized frames with optional detector/tracker overlays;
-its empty reference templates are not ground truth.
+The editor opens real normalized frames with optional detector/tracker overlays;
+its empty reference templates are not ground truth. See [annotation workflow](docs/ANNOTATION_WORKFLOW.md)
+for drawing boxes, saving labels and validating/freezing a manually reviewed interval.
 
 On the street clip, baseline ByteTrack emitted no tracks on 112/167 frames and
 BoT-SORT on 104/167. Lower detector confidence reduced these to 97/167 for both.

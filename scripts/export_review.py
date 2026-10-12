@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 from vision.detection.run import file_hash
+from vision.evaluation.reference import empty_reference
+from vision.evaluation.render import render_editor
 from vision.tracking.records import validate_frame
 
 
@@ -80,23 +82,14 @@ def main():
     (args.output / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
     )
-    reference = {
-        "schema_version": 1,
-        "manifest_sha256": file_hash(args.output / "manifest.json"),
-        "reviewer": None,
-        "annotation_version": None,
-        "complete": False,
-        "frames": [
-            {"frame_index": i, "reviewed": False, "people": [], "ppe": [], "notes": ""}
-            for i in range(len(frames))
-        ],
-    }
-    (args.output / "reference-template.json").write_text(json.dumps(reference, indent=2) + "\n")
-    template = Path(__file__).resolve().parents[1] / "vision/evaluation/review.html"
+    reference = empty_reference(manifest, file_hash(args.output / "manifest.json")).model_dump(
+        mode="json"
+    )
+    (args.output / "reference-template.json").write_text(
+        json.dumps(reference, indent=2) + "\n", encoding="utf-8"
+    )
     bundle = {**manifest, "frames": frames, "trackers": trackers}
-    payload = json.dumps(bundle, allow_nan=False).replace("<", "\\u003c")
-    html = template.read_text(encoding="utf-8").replace("/*DATA*/", payload)
-    (args.output / "index.html").write_text(html, encoding="utf-8")
+    (args.output / "index.html").write_text(render_editor(bundle, reference), encoding="utf-8")
     print(json.dumps({"output": str(args.output), "frames": len(frames), "reviewed": False}))
 
 

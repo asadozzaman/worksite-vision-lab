@@ -3,6 +3,8 @@
 Protocol, not completed annotation. Raw-frame review bundles now exist for all 298
 normalized frames under `data/review/`; no human worker identities have been labeled.
 Templates are empty and explicitly unreviewed, never confirmed negative examples.
+The [person annotation editor](ANNOTATION_WORKFLOW.md) now supports box/identity
+editing, save/reopen and validated reference freezing. Human labels remain pending.
 See [export/review instructions](TRACKING_REPRODUCTION.md). This document defines
 the evidence needed for accuracy-based comparisons and later phases.
 

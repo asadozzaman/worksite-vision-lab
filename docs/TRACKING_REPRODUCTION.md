@@ -75,15 +75,19 @@ python -m http.server 8768 --bind 127.0.0.1 --directory data/review
 
 Open `http://127.0.0.1:8768/building/` or `/street/`. The exported `index.html` also
 works offline with its adjacent image directory. Only the review directory is
-served on localhost. It is an inspection/export utility, not the planned React
-application or an annotation editor. It shows raw frames first, supports exact
-frame entry, previous/next/arrows, and switches between detector/tracker overlays.
+served on localhost. New exports include a local person annotation editor with
+box drawing, manual identities, per-frame review and JSON save/reopen. It shows raw
+frames first, supports exact frame entry, previous/next/arrows, and switches between
+detector/tracker overlays. The planned React application remains a later phase.
 Keep source attribution when sharing any derivative.
 
 The manifest freezes all raw-frame image hashes, input video hash and record hashes.
 The reference template is intentionally empty, `reviewed:false`, `complete:false`.
-Do not treat empty labels as confirmed negatives. Annotate in a suitable editor
-and follow [the protocol](ANNOTATION_PROTOCOL.md) before calculating metrics.
+Do not treat empty labels as confirmed negatives. Follow [the editor workflow](ANNOTATION_WORKFLOW.md)
+to validate/freeze labels and [the protocol](ANNOTATION_PROTOCOL.md) before metrics.
+If `data/review/` already exists from an earlier export, use `data/annotation/` as
+the new output root. Existing version 1 templates are intentionally not migrated
+into claimed reviewed labels.
 
 ## Verification
 
