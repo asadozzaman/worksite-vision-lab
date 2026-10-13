@@ -36,6 +36,12 @@ def main(argv: list[str] | None = None) -> int:
         if command == "freeze-reference":
             subparser.add_argument("--images", type=Path, required=True)
             subparser.add_argument("--output", type=Path, required=True)
+    evaluate = commands.add_parser(
+        "evaluate-person", help="score frozen person labels and both trackers"
+    )
+    for name in ("reference", "images", "video", "baseline", "config", "output"):
+        evaluate.add_argument(f"--{name}", type=Path, required=True)
+    evaluate.add_argument("--tracking", type=Path, nargs=2, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -49,6 +55,18 @@ def main(argv: list[str] | None = None) -> int:
             result = reference_status(reference)
         elif args.command == "freeze-reference":
             result = freeze_reference(args.path, args.manifest, args.images, args.output)
+        elif args.command == "evaluate-person":
+            from vision.evaluation.run import evaluate_person
+
+            result = evaluate_person(
+                args.reference,
+                args.images,
+                args.video,
+                args.baseline,
+                args.tracking,
+                args.config,
+                args.output,
+            )
         else:
             schema = AssetManifest if args.command == "validate-assets" else ExperimentConfig
             validated = schema.model_validate_json(args.path.read_text(encoding="utf-8"))

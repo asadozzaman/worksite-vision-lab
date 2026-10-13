@@ -1,13 +1,13 @@
 # Phase status
 
-As of 2026-10-12 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
+As of 2026-10-13 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
 | Phase | Status | Evidence / remaining gate |
 |---|---|---|
 | 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
 | 1 — real detection baseline | Inference implemented and verified; reference evaluation partial | Two real clips, 298 frames, annotated videos, JSONL, CPU timing, repeatability and frame-linked qualitative failures. Human reference annotations/accuracy pending. |
 | 2 — tracking comparison | Implemented and verified with observational proxies; formal evaluation pending | Both trackers on both clips, person-only records/videos, 12 replays and repeatability. No human identity labels or formal scores. |
-| 3 — failure analysis | Partially implemented and executed | Three diagnostic variants, failure records, person annotation editor and reference validation/freeze commands; human labels and accuracy comparisons pending. |
+| 3 — failure analysis | Partially implemented and executed | Diagnostic variants, annotation/freeze tools and a tested person evaluation runner; human reference QA and actual accuracy comparisons pending. |
 | 4 — event reliability | Not started | Needs validated association and frozen reference events. |
 | 5 — API/dashboard | Not started | No mock application or invented metrics. |
 | 6 — release validation | Not started | Requires full platform integration and end-to-end validation. |
@@ -153,3 +153,51 @@ Next: human review of the exported contiguous reference frames, frozen identity
 and box annotations, and a distinct held-out scene. Use these to evaluate detector
 duplicates/person fallback before PPE association or alert tuning. No training is justified.
 Do not claim later phases complete until their code and experiments actually run.
+
+The evaluation branch `feat/person-reference-evaluation` builds on the unmerged
+annotation branch. It provides `evaluate-person` with frozen-source checks, detector
+P/R/F1, motmetrics IDF1/MOTA/switch/fragmentation results, and frame-linked diagnostics.
+See [protocol and implementation limits](PERSON_EVALUATION.md). Software fixture
+scores are excluded from real-video research claims. No new checkpoint inference,
+human annotation, accuracy-based tuning, event code or model training occurred.
+Local evaluation environment: 138 repository tests passed; vision integration is
+handled separately. Lightweight foundation: 103 passed, with numerical/vision
+modules intentionally skipped. Seven Node tests, Ruff lint/format, dependency
+checks and wheel build passed. Fourteen non-benchmark upstream metric-function
+tests passed; the legacy multi-sequence helper is outside the supported scope.
+The CLI rejected the actual unreviewed building template and created no result.
+Evaluation implementation commit: `4a94fd5`. The evaluation review targets the
+annotation branch in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4) and depends on PR #2.
+It has not been merged. Current-head
+GitHub checks are the source of CI status. Earlier review history remains in
+[PR #3](https://github.com/asadozzaman/worksite-vision-lab/pull/3), which was closed
+when the branch was renamed to follow the project's neutral naming convention.
+
+## Engineering presentation review — 2026-10-13
+
+The README now presents the implemented pipeline, reproduction commands, measured
+observations and remaining gates together. A real CC0 building frame compares raw
+input, saved Person detections and BoT-SORT output. Its renderer validates complete
+prediction streams and source hashes, and records rendering provenance; it does
+not rerun inference or produce accuracy. External notices identify this public
+image derivative while raw videos and weights remain excluded.
+
+[Engineering readiness](ENGINEERING_READINESS.md) maps demonstrated capabilities
+to concrete acceptance gates. Human reference QA, an independent scene, real
+accuracy results, PPE/event logic and the application still remain incomplete.
+Presentation changes do not establish production readiness.
+
+Verification: 138 Python tests and seven Node tests passed; the optional tracking
+integration module was skipped in the isolated numerical environment and remains
+covered by its dedicated CI job. Ruff lint/format, JavaScript syntax and Markdown
+file links passed. Figure regeneration produced identical PNG/manifest bytes on
+the same runtime. Wrong-video, invalid-frame and existing-output attempts were
+rejected without creating or replacing output. The figure and renderer hashes
+match the published manifest.
+
+GitHub repository description now reflects detection/tracking research; topic
+metadata describes the implemented stack. No default-branch merge was performed.
+
+Presentation implementation: `bec78117a5d41d8d6792d9acbad3cd5d6941ac02`.
+Review remains in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4),
+which depends on annotation PR #2. Check its current-head CI before merging.

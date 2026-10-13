@@ -191,17 +191,7 @@ def freeze_reference(path: Path, manifest_path: Path, images: Path, output: Path
         raise ValueError("freeze requires a complete interval and explicit human attestation")
     if not reference.reviewer.strip() or reference.revision == 0:
         raise ValueError("freeze requires reviewer identity and revision history")
-    expected_names = {f"{i:06d}.jpg" for i in range(reference.frame_count)}
-    if (
-        not isinstance(manifest["image_sha256"], dict)
-        or set(manifest["image_sha256"]) != expected_names
-    ):
-        raise ValueError("manifest image list is incomplete or contains unexpected paths")
-    image_root = images.resolve(strict=True)
-    for name, digest in manifest["image_sha256"].items():
-        image_path = (image_root / name).resolve(strict=True)
-        if image_path.parent != image_root or sha256_file(image_path) != digest:
-            raise ValueError(f"review image changed: {name}")
+    verify_reference_images(reference, manifest, images)
     # Copy the exact submitted bytes; the output must be a new directory.
     record = {
         "schema_version": 1,
@@ -222,3 +212,75 @@ def freeze_reference(path: Path, manifest_path: Path, images: Path, output: Path
     (output / "manifest.json").write_bytes(manifest_bytes)
     (output / "freeze.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     return record
+
+
+def verify_reference_images(reference, manifest, images):
+    expected_names = {f"{i:06d}.jpg" for i in range(reference.frame_count)}
+    if (
+        not isinstance(manifest["image_sha256"], dict)
+        or set(manifest["image_sha256"]) != expected_names
+    ):
+        raise ValueError("manifest image list is incomplete or contains unexpected paths")
+    image_root = images.resolve(strict=True)
+    for name, digest in manifest["image_sha256"].items():
+        image_path = (image_root / name).resolve(strict=True)
+        if image_path.parent != image_root or sha256_file(image_path) != digest:
+            raise ValueError(f"review image changed: {name}")
+
+
+class FrozenRecord(StrictModel):
+    schema_version: Literal[1]
+    frozen_at: str
+    annotation_sha256: Digest
+    manifest_sha256: Digest
+    reviewer: str
+    annotation_version: str
+    revision: int = Field(gt=0, le=200000)
+    review_interval: list[int] = Field(min_length=2, max_length=2)
+    valid: bool
+    scope: Literal["person_tracking"]
+    split: Literal["development", "test"]
+    reviewed_frames: int = Field(ge=0)
+    selected_frames: int = Field(gt=0)
+    person_boxes: int = Field(ge=0)
+    ignored_boxes: int = Field(ge=0)
+    complete: bool
+    human_attested: bool
+    ready_to_freeze: bool
+    accuracy_measured: bool
+    attestation_scope: str
+
+
+def load_frozen_reference(folder: Path, images: Path):
+    """Recheck both byte digests, declaration, interval and source images before scoring."""
+    reference, manifest, annotation_bytes, manifest_bytes = _read_validated(
+        folder / "reference.json", folder / "manifest.json"
+    )
+    if not reference_status(reference)["ready_to_freeze"] or reference.reviewer_kind != "human":
+        raise ValueError("evaluation requires frozen, completed human-attested reference labels")
+    record_bytes = (folder / "freeze.json").read_bytes()
+    record = FrozenRecord.model_validate_json(record_bytes)
+    if datetime.fromisoformat(record.frozen_at).tzinfo is None:
+        raise ValueError("freeze timestamp requires a timezone")
+    expected = {
+        **reference_status(reference),
+        "annotation_sha256": hashlib.sha256(annotation_bytes).hexdigest(),
+        "manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+        "review_interval": [reference.review_start, reference.review_end],
+        "reviewer": reference.reviewer,
+        "annotation_version": reference.annotation_version,
+        "revision": reference.revision,
+    }
+    for key, value in expected.items():
+        if getattr(record, key) != value:
+            raise ValueError(f"freeze record mismatch: {key}")
+    verify_reference_images(reference, manifest, images)
+    return (
+        reference,
+        manifest,
+        {
+            "annotation_sha256": expected["annotation_sha256"],
+            "manifest_sha256": expected["manifest_sha256"],
+            "freeze_sha256": hashlib.sha256(record_bytes).hexdigest(),
+        },
+    )
