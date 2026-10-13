@@ -1,9 +1,0 @@
-{
-  "baseline_run": "building-baseline",
-  "repeat_run": "building-repeat",
-  "byte_identical_detection_records": true,
-  "sha256": "b973ca43de30a28e6422c7a6610d14ce9c10c26a541b649968d951ecae7e1a85",
-  "frames": 131,
-  "repeat_processing_fps": 2.5381160880699887,
-  "scope": "same normalized input, container image and settings; timing may vary; no accuracy implication"
-}
