@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inspect real YOLO26 detections and ByteTrack/BoT-SORT outputs. Reproducible construction-video research, with measured observations and documented failures.">
+  <meta name="theme-color" content="#f5f4ef">
+  <title>Worksite Vision Lab — Detection, tracking, evidence</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#evidence">Skip to evidence viewer</a>
+  <header class="masthead wrap">
+    <a class="brand" href="#top"><img src="icon.svg" width="32" height="32" alt=""><span>WORKSITE<span class="brand-sub">VISION LAB</span></span></a>
+    <nav aria-label="Main navigation"><a href="#evidence">Evidence</a><a href="#observations">Results</a><a href="#method">Method</a><a class="repository" href="https://github.com/asadozzaman/worksite-vision-lab">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero wrap" aria-labelledby="headline">
+      <div class="intro">
+        <p class="eyebrow"><span class="dot"></span> Construction video / research prototype</p>
+        <h1 id="headline">Tracking begins<br>with what <br>you <em>miss.</em></h1>
+        <p class="lead">A person detector, two trackers, and the evidence between them. Investigating worksite video failures before turning predictions into safety decisions.</p>
+        <div class="actions"><a class="button primary" href="#evidence">Inspect the evidence <span aria-hidden="true">↘</span></a><a class="text-link" data-doc="experiments/reports/TRACKING_COMPARISON.md" href="https://github.com/asadozzaman/worksite-vision-lab">Read the experiments ↗</a></div>
+        <p class="hero-note">Real footage. Preserved inputs. Measured observations.</p>
+      </div>
+      <section class="viewer" id="evidence" aria-labelledby="viewer-title">
+        <div class="viewer-heading"><div><span class="eyebrow">Evidence workspace</span><h2 id="viewer-title">Building site</h2></div><span class="tag">Saved outputs</span></div>
+        <div class="modes" role="group" aria-label="Prediction overlay">
+          <button data-mode="raw" aria-pressed="false">Raw frame</button>
+          <button data-mode="detections" aria-pressed="true">Detector</button>
+          <button data-mode="bytetrack" aria-pressed="false">ByteTrack</button>
+          <button data-mode="botsort" aria-pressed="false">BoT-SORT</button>
+        </div>
+        <div class="viewer-stage">
+          <div class="image-stage"><canvas id="frame-canvas" width="360" height="640" aria-label="Building frame and selected prediction overlay"></canvas><span class="frame-stamp" id="frame-stamp">FRAME 050</span></div>
+          <aside class="record-panel" aria-label="Selected frame observations">
+            <span class="eyebrow">Frame record</span><strong id="record-count">—</strong><span id="record-label">Person predictions</span>
+            <div id="record-list"></div>
+            <p class="record-note">Boxes and IDs are model outputs. They are not reference labels or unique-worker counts.</p>
+          </aside>
+        </div>
+        <div class="timeline">
+          <div class="frame-controls"><button id="previous" aria-label="Previous sampled frame">←</button><label for="frame-slider">Sample <span id="sample-position">3 / 6</span></label><button id="next" aria-label="Next sampled frame">→</button><output id="frame-time">2.000 s</output></div>
+          <input id="frame-slider" type="range" min="0" max="5" value="2" step="1" aria-label="Sampled video frame">
+          <div class="timeline-labels"><span>0.000 s</span><span>6 sampled frames / 131-frame clip</span><span>5.200 s</span></div>
+        </div>
+        <p id="viewer-status" class="viewer-status" role="status" aria-live="polite">Loading verified frame records…</p>
+      </section>
+    </section>
+    <section class="scope-strip wrap" aria-label="Executed research scope">
+      <div><strong>298</strong><span>real input frames</span></div><div><strong>02</strong><span>development clips</span></div><div><strong>12</strong><span>tracker replays</span></div><div class="pending"><strong>Pending</strong><span>human-reviewed accuracy</span></div>
+    </section>
+    <section class="finding wrap">
+      <div class="section-number">01 / THE FAILURE</div>
+      <div><h2>A tracker cannot recover<br>a person the detector misses.</h2><p>At building frame 50, the foreground person receives a detector box. The cropped person on the right receives none, and neither tracker emits a track for that person. This visual finding points to detection coverage before tracker tuning.</p><p class="muted">Qualitative investigation; no scored false negative or verified identity switch is claimed.</p><a class="text-link" href="assets/baseline-comparison.png">Open the frame-aligned comparison ↗</a></div>
+    </section>
+    <section class="observations wrap" id="observations" aria-labelledby="observations-title">
+      <div class="section-heading"><div><p class="section-number">02 / MEASURED OBSERVATIONS</p><h2 id="observations-title">Execution is evidence.<br>Accuracy needs a reference.</h2></div><p>Both trackers receive identical saved Person detections. No output count is promoted to recall, identity correctness, or verified worker count.</p></div>
+      <div class="table-wrap"><table><caption class="sr-only">Real-video baseline observations</caption><thead><tr><th scope="col">Development scene</th><th scope="col">Frames</th><th scope="col">Detection FPS</th><th scope="col">ByteTrack<br><small>frames without tracks</small></th><th scope="col">BoT-SORT<br><small>frames without tracks</small></th></tr></thead><tbody><tr><th scope="row"><span class="scene-dot building"></span>Building site <small>Akum20 / CC0</small></th><td>131</td><td>2.311</td><td>0 / 131</td><td>0 / 131</td></tr><tr><th scope="row"><span class="scene-dot street"></span>Street works <small>KabanDanish / CC BY 4.0</small></th><td>167</td><td>3.114</td><td>112 / 167</td><td>104 / 167</td></tr></tbody></table></div>
+      <p class="table-note">Detection timing: decode, predict, draw and write; excludes load/warmup. Two-CPU, 2 GiB Docker container, confidence 0.25, inference size 640. Single-run observations, not general hardware benchmarks. A tracked frame can still contain missed people.</p>
+      <div class="experiment-note"><span class="experiment-label">CONTROLLED CHANGE / T1</span><p>Lowering detector confidence from <strong>0.25 to 0.10</strong> reduced street frames without tracks to <strong>97 / 167</strong> for both trackers. More output coverage is observable; improved accuracy is unestablished.</p><a data-doc="experiments/reports/TRACKING_COMPARISON.md" href="https://github.com/asadozzaman/worksite-vision-lab">All three experiments ↗</a></div>
+    </section>
+    <section class="method" id="method">
+      <div class="wrap"><p class="section-number">03 / THE RESEARCH METHOD</p><div class="method-title"><h2>Preserve the input.<br>Question the output.</h2><p>Detection, tracking and evaluation stay separate. Each stage carries frame indexes, timestamps, configuration and source hashes.</p></div>
+        <ol class="pipeline"><li><span>01</span><h3>Normalize &amp; bind</h3><p>Preserve originals, normalize once, record source and output hashes.</p></li><li><span>02</span><h3>Detect &amp; replay</h3><p>Resolve Person from model metadata. Replay both trackers on identical detections.</p></li><li><span>03</span><h3>Review &amp; freeze</h3><p>Correct manual boxes and identities. Record uncertainty and explicit human review.</p></li><li><span>04</span><h3>Evaluate &amp; investigate</h3><p>Score frozen intervals and trace misses, duplicates and identity failures to frames.</p></li></ol>
+        <div class="boundary"><span class="tag">Current boundary</span><p>Human reference QA and an independent test scene are pending. PPE association, safety events, the API and the production dashboard are future phases. This site inspects saved results; it does not run inference or accept uploads.</p></div>
+      </div>
+    </section>
+    <section class="reproduce wrap">
+      <div><p class="section-number">04 / REPRODUCE THE WORK</p><h2>Open inputs.<br>Inspectable decisions.</h2><p>Run the CPU pipeline locally. Review the configs, byte hashes, matching rules and failed experiments alongside successful runs.</p><a class="button primary" data-doc="docs/BASELINE_REPRODUCTION.md" href="https://github.com/asadozzaman/worksite-vision-lab">CPU reproduction guide ↗</a></div>
+      <div class="reading-list"><a data-doc="docs/MODEL_RESEARCH.md" href="https://github.com/asadozzaman/worksite-vision-lab"><span>01</span><div><strong>Checkpoint investigation</strong><small>Architecture, class mapping and isolated loading</small></div><span>↗</span></a><a data-doc="docs/PERSON_EVALUATION.md" href="https://github.com/asadozzaman/worksite-vision-lab"><span>02</span><div><strong>Evaluation protocol</strong><small>Matching, exclusions, IDF1 and MOTA definitions</small></div><span>↗</span></a><a data-doc="docs/ENGINEERING_READINESS.md" href="https://github.com/asadozzaman/worksite-vision-lab"><span>03</span><div><strong>Engineering readiness</strong><small>Demonstrated behavior and remaining acceptance gates</small></div><span>↗</span></a><a href="results.json"><span>04</span><div><strong>Public frame records</strong><small>Six source-bound frames and their saved predictions</small></div><span>↗</span></a></div>
+    </section>
+  </main>
+  <footer class="wrap"><div class="footer-top"><span class="brand-name">WORKSITE VISION LAB</span><a href="https://github.com/asadozzaman/worksite-vision-lab">Source repository ↗</a></div><p>Building frames: <a href="https://commons.wikimedia.org/wiki/File:Men_at_work_in_building_site.webm">Akum20 / Wikimedia Commons</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>. Modified: resize, resample, JPEG extraction and overlays. Original project code: AGPL-3.0-only.</p><p>Predictions are research observations. No safety violation, certification or endorsement is asserted. <a href="publish-manifest.json">Published file manifest ↗</a></p></footer>
+</body>
+</html>

@@ -201,3 +201,19 @@ metadata describes the implemented stack. No default-branch merge was performed.
 Presentation implementation: `bec78117a5d41d8d6792d9acbad3cd5d6941ac02`.
 Review remains in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4),
 which depends on annotation PR #2. Check its current-head CI before merging.
+
+## Public research demo — 2026-10-13
+
+A buildless `site/` presents actual baseline observations and six licensed CC0
+building frames with switchable raw, detector, ByteTrack and BoT-SORT views.
+The exporter verifies all 131 source-image hashes and complete prediction streams;
+it exports an explicit subset without user labels or local-path metadata.
+The public file manifest and two Node evidence tests check preserved prediction
+equivalence, timestamps, hashes and the exact allowed file set.
+
+Desktop (1280 × 900) and mobile (390 × 844) layouts were inspected. All overlay modes
+and first/last-frame boundaries worked. Mobile page width stayed within the viewport.
+Publication uses a separate `gh-pages` branch; source review remains isolated on
+`feat/github-pages-demo`. No research PR or default-branch merge is required.
+See [publication details](GITHUB_PAGES.md). This is a public static research demo;
+the inference API, uploads, PPE events and application dashboard remain unimplemented.
