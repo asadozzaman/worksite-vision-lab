@@ -172,3 +172,28 @@ It has not been merged. Current-head
 GitHub checks are the source of CI status. Earlier review history remains in
 [PR #3](https://github.com/asadozzaman/worksite-vision-lab/pull/3), which was closed
 when the branch was renamed to follow the project's neutral naming convention.
+
+## Engineering presentation review — 2026-10-13
+
+The README now presents the implemented pipeline, reproduction commands, measured
+observations and remaining gates together. A real CC0 building frame compares raw
+input, saved Person detections and BoT-SORT output. Its renderer validates complete
+prediction streams and source hashes, and records rendering provenance; it does
+not rerun inference or produce accuracy. External notices identify this public
+image derivative while raw videos and weights remain excluded.
+
+[Engineering readiness](ENGINEERING_READINESS.md) maps demonstrated capabilities
+to concrete acceptance gates. Human reference QA, an independent scene, real
+accuracy results, PPE/event logic and the application still remain incomplete.
+Presentation changes do not establish production readiness.
+
+Verification: 138 Python tests and seven Node tests passed; the optional tracking
+integration module was skipped in the isolated numerical environment and remains
+covered by its dedicated CI job. Ruff lint/format, JavaScript syntax and Markdown
+file links passed. Figure regeneration produced identical PNG/manifest bytes on
+the same runtime. Wrong-video, invalid-frame and existing-output attempts were
+rejected without creating or replacing output. The figure and renderer hashes
+match the published manifest.
+
+GitHub repository description now reflects detection/tracking research; topic
+metadata describes the implemented stack. No default-branch merge was performed.

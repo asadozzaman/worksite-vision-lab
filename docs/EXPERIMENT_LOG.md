@@ -159,3 +159,17 @@ No failure hypotheses or performance improvements are claimed before observation
   environment, 103 in the lightweight environment (overlapping suites), seven Node
   tests and 14 upstream non-benchmark metric tests pass. Ruff, dependency checks
   and wheel build pass. Actual unreviewed building template rejected with no result.
+
+## DOCS-001 — source-verified public evidence (2026-10-13)
+
+- Reorganized the README around implemented behavior, reproduction and measured
+  observations. Added an engineering readiness checklist with explicit open gates.
+- Rendered building frame 50 from the existing normalized video and saved detector/
+  BoT-SORT streams. Checked full prediction streams, source hashes and decoded frame
+  count before publication. Only Person predictions are shown; no labels or metrics
+  were generated. CC0 source attribution and modification notes accompany the figure.
+- Confirmed the tracked baseline report adds artifact_validation to the original
+  summary. Removing that report-only field and restoring its recorded serialization
+  exactly reproduces the source-summary bytes/hash used by the tracker. Evaluation
+  input binding remains unchanged.
+- No new inference, tuning, training, human reference review or safety-event result.
