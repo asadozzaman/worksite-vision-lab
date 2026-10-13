@@ -4,6 +4,15 @@ The `site/` directory is a buildless GitHub Pages demo of saved research outputs
 It is separate from the planned inference API and application dashboard. There is
 no backend, upload processing, model execution or account system in this site.
 
+Live URL: [Worksite Vision Lab](https://asadozzaman.github.io/worksite-vision-lab/).
+Verified on 2026-10-13: GitHub Pages reported `built`, HTTPS enforced, with
+`gh-pages` at `/`. Deployment commit: `570d9cae9904876089b166e244304e172a45c87a`;
+source implementation: `bae289f767437f654b510b3532d4f291f2f9bfa1`.
+All 13 allowlisted files returned HTTP 200 and matched their published hashes;
+the manifest matched the reviewed local copy. The live viewer loaded frame 50
+at 2.000 seconds and BoT-SORT ID 8 with confidence 0.712.
+Source review: [PR #5](https://github.com/asadozzaman/worksite-vision-lab/pull/5).
+
 ## Published content
 
 - Six sampled building frames: 0, 25, 50, 75, 100 and 130, from the reviewed CC0 source.

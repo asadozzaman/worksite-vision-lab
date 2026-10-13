@@ -188,3 +188,7 @@ No failure hypotheses or performance improvements are claimed before observation
   extra files, changed images and a wrong scene manifest are rejected by export/
   preparation guards. Publication uses committed blobs on a separate Pages branch.
 - No new inference, human reference annotation, tuning or real accuracy result.
+- Live verification: Pages built deployment 570d9ca from source bae289f; HTTPS
+  enforced. All 13 public file hashes matched over unauthenticated HTTPS. Browser
+  loaded frame 50 and the expected BoT-SORT ID 8. Both ten-job source workflows
+  passed. The public URL is https://asadozzaman.github.io/worksite-vision-lab/.

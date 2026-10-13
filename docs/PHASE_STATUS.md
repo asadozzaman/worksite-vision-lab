@@ -217,3 +217,13 @@ Publication uses a separate `gh-pages` branch; source review remains isolated on
 `feat/github-pages-demo`. No research PR or default-branch merge is required.
 See [publication details](GITHUB_PAGES.md). This is a public static research demo;
 the inference API, uploads, PPE events and application dashboard remain unimplemented.
+
+Live deployment: [Worksite Vision Lab](https://asadozzaman.github.io/worksite-vision-lab/),
+Pages commit `570d9cae9904876089b166e244304e172a45c87a`, from source implementation
+`bae289f767437f654b510b3532d4f291f2f9bfa1`. GitHub reported built/HTTPS enforced;
+all 13 public files returned HTTP 200 with matching hashes and the live browser
+viewer showed the expected saved frame/track. Source review is
+[PR #5](https://github.com/asadozzaman/worksite-vision-lab/pull/5), targeting the
+unmerged evaluation branch. Both implementation CI workflows passed all ten jobs,
+including the new public-evidence tests. Local validation: 138 Python tests and
+nine Node tests passed; optional vision integration remains in its separate CI job.
