@@ -5,6 +5,15 @@ on:
 permissions:
   contents: read
 jobs:
+  annotation-editor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/annotation_core.test.cjs
+      - run: node --check vision/evaluation/annotation-ui.js
   foundation:
     strategy:
       matrix:

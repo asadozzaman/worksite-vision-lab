@@ -1,52 +1,60 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Worksite Vision Lab · Evidence review</title>
+<title>Worksite Vision Lab · Person annotation</title>
 <style>
-:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#101a23;color:#e6edf2}
-body{margin:0}header,main,footer{max-width:1180px;margin:auto;padding:20px}
-header{border-bottom:1px solid #34434e}h1{font-size:24px;margin:8px 0}p{line-height:1.5;color:#b7c9d6}
-.layout{display:grid;grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);gap:24px}
-canvas{max-width:100%;height:auto;background:#000;display:block;margin:auto;border:1px solid #526470}
-button,select,input{font:inherit;color:inherit;background:#223341;border:1px solid #5a7284;padding:8px;border-radius:5px}
-button{cursor:pointer}button:hover{background:#314b60}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #58dae7}
-.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}input[type=range]{width:100%;padding:0}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#172731;padding:14px;max-height:450px;overflow:auto}
-.badge{font-size:12px;color:#66d7e4;text-transform:uppercase;letter-spacing:1px}a{color:#72cddd}
-@media(max-width:760px){.layout{grid-template-columns:1fr}header,main,footer{padding:14px}}
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#101a23;color:#e6edf2;font-size:14px}
+*{box-sizing:border-box}body{margin:0}header,main,footer{max-width:1320px;margin:auto;padding:20px 28px}header{border-bottom:1px solid #34434e}
+h1{font-size:26px;margin:7px 0}h2{font-size:18px;margin:0 0 14px}p{line-height:1.5;color:#b7c9d6;margin:8px 0}
+.badge{font-size:11px;color:#65dac8;text-transform:uppercase;letter-spacing:1.8px}.layout{display:grid;grid-template-columns:minmax(340px,1fr) minmax(340px,1fr);gap:24px;align-items:start}
+.panel{background:#172630;border:1px solid #344651;border-radius:10px;padding:18px;margin-bottom:16px}.stage{background:#080f15;border-radius:8px;padding:12px;display:flex;justify-content:center}
+canvas{max-width:100%;height:auto;max-height:640px;display:block;touch-action:none;cursor:crosshair}button,select,input,textarea{font:inherit;color:inherit;background:#203441;border:1px solid #557080;padding:8px;border-radius:5px}
+button{cursor:pointer}button:hover:not(:disabled){background:#325063}button:disabled,fieldset:disabled{opacity:.45;cursor:default}button[aria-pressed=true]{border-color:#58dfca;background:#214d48}
+button.primary{background:#58dfca;color:#0c2826;border-color:#58dfca;font-weight:650}button.danger{color:#ffb8ad}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #7ae9f2;outline-offset:2px}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}.controls label{display:flex;align-items:center;gap:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid label{display:flex;flex-direction:column;gap:6px}
+.coords{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.coords input{width:100%}.coords label{display:flex;flex-direction:column;gap:5px}input[type=number]{width:85px}input[type=range]{width:100%;padding:0;accent-color:#58dfca}input[type=checkbox]{accent-color:#58dfca}
+textarea{width:100%;resize:vertical}fieldset{border:0;padding:0;margin:0;min-width:0}legend{font-weight:600;margin:16px 0 10px}#boxes{display:flex;flex-direction:column;gap:6px}#boxes button{text-align:left}
+.muted,small{color:#a9bccb;font-size:12px;line-height:1.5}.error{color:#ffb8ad!important}#status{min-height:42px}#frame-state,#progress{color:#79e7d6;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;max-height:260px;overflow:auto}
+details{margin-top:12px}summary{cursor:pointer;color:#a9bccb}a{color:#7cdbd7}.check{display:flex;align-items:flex-start;gap:8px;margin:12px 0}.check input{margin-top:3px}label.file{border:1px dashed #557080;padding:9px;border-radius:5px;display:block}input[type=file]{max-width:100%;padding:5px;font-size:12px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}header,main,footer{padding:16px}.grid{grid-template-columns:1fr}canvas{max-height:none}h1{font-size:22px}}
 </style></head><body>
-<header><span class="badge">Worksite Vision Lab / Development evidence</span><h1 id="title"></h1>
-<p>Inspect original frames before enabling model overlays. Predictions and track IDs are not reference labels. All people are candidates; their occupation is not inferred.</p></header>
-<main><div class="layout"><section aria-label="Frame inspector"><canvas id="canvas"></canvas>
-<div class="controls"><button id="prev" aria-label="Previous frame">← Previous</button><button id="next" aria-label="Next frame">Next →</button>
-<label>Frame <input id="number" type="number" min="0" step="1" style="width:85px"></label><span id="time"></span></div>
-<input id="slider" type="range" min="0" step="1" aria-label="Video frame">
-<div class="controls"><label>Overlay <select id="overlay"><option value="none">None — raw frame</option><option value="detections">Detections</option></select></label></div>
-<p id="status" role="status"></p></section>
-<section><span class="badge">Observation record</span><h2>Exact frame evidence</h2><pre id="record"></pre>
-<h2>Reference annotation</h2><p>The companion <a href="reference-template.json" download>reference template</a> contains unreviewed, empty labels for every frame. Use it with your annotation workflow. Assign manual identities independently of tracker IDs. Sparse review cannot establish identity accuracy.</p>
-<p>Read <a href="manifest.json">the frozen input manifest</a>. Both clips are development data; a separate final test set is still needed. No accuracy or safety certification is implied.</p></section></div></main>
-<footer><p id="credit"></p></footer>
-<script>
-const bundle=/*DATA*/;
-const $=id=>document.getElementById(id), canvas=$('canvas'), ctx=canvas.getContext('2d');
-let current=0, request=0;
-$('title').textContent=bundle.title;$('credit').textContent=bundle.attribution;
-canvas.width=bundle.width;canvas.height=bundle.height;
-$('slider').max=$('number').max=bundle.frames.length-1;
-Object.keys(bundle.trackers).forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;$('overlay').appendChild(option)});
-function drawBox(box,label,color){ctx.strokeStyle=color;ctx.lineWidth=2;ctx.strokeRect(box[0],box[1],box[2]-box[0],box[3]-box[1]);ctx.font='12px sans-serif';ctx.fillStyle=color;ctx.fillText(label,Math.max(2,box[0]),Math.max(13,box[1]-3))}
-function show(index){current=Math.max(0,Math.min(bundle.frames.length-1,Math.trunc(Number(index)||0)));const token=++request;
- const frame=bundle.frames[current], mode=$('overlay').value;
- $('slider').value=$('number').value=current;$('time').textContent=(current/bundle.fps).toFixed(3)+' s';
- $('prev').disabled=current===0;$('next').disabled=current===bundle.frames.length-1;
- const record=mode==='none'?{frame_index:current,timestamp_seconds:current/bundle.fps,reference_reviewed:false}:mode==='detections'?frame:bundle.trackers[mode][current];
- $('record').textContent=JSON.stringify(record,null,2);$('status').textContent='Loading frame…';
- const image=new Image();image.onload=()=>{if(token!==request)return;ctx.drawImage(image,0,0);
- if(mode==='detections')frame.detections.forEach(d=>drawBox(d.xyxy,d.class_name+' '+d.confidence.toFixed(2),'#ffe269'));
- else if(mode!=='none')bundle.trackers[mode][current].tracks.forEach(t=>drawBox(t.xyxy,'ID '+t.track_id+' '+t.confidence.toFixed(2),'#62e8ef'));
- $('status').textContent=mode==='none'?'Raw normalized frame. No model labels shown.':'Model output for inspection — not ground truth.'};
- image.onerror=()=>{if(token===request)$('status').textContent='Frame failed to load. Keep the images folder beside this page.'};image.src='images/'+String(current).padStart(6,'0')+'.jpg';}
-$('prev').onclick=()=>show(current-1);$('next').onclick=()=>show(current+1);
-$('slider').oninput=e=>show(e.target.value);$('number').oninput=e=>show(e.target.value);$('overlay').onchange=()=>show(current);
-document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;if(e.key==='ArrowLeft')show(current-1);if(e.key==='ArrowRight')show(current+1)});show(0);
-</script></body></html>
+<header><span class="badge">Worksite Vision Lab / Person reference</span><h1 id="title"></h1><p id="source"></p>
+<p>Draw every visible person and maintain the same manual identity across frames. Inspect raw frames first; model predictions are optional evidence, not labels.</p></header>
+<main><div class="layout"><section aria-label="Frame annotation">
+<div class="panel"><div class="controls"><label>Tool <select id="mode"><option value="draw">Draw box</option><option value="select">Select box</option></select></label>
+<label>Predictions <select id="overlay"><option value="none">Hidden</option><option value="detections">Detections</option></select></label></div>
+<div class="stage"><canvas id="canvas" aria-label="Raw video frame. Drag to draw a person box; edit exact coordinates in the box panel."></canvas></div>
+<div class="controls"><button id="prev" aria-label="Previous frame">← Previous</button><button id="next" aria-label="Next frame">Next →</button><label>Frame <input id="number" type="number" min="0" step="1"></label></div>
+<input id="slider" type="range" min="0" step="1" aria-label="Video frame"><p id="time" class="muted"></p>
+<div class="controls"><button id="copy">Copy previous boxes</button><button id="undo">Undo</button></div>
+<p class="muted">Drag corner to corner to add a box. Select it to edit coordinates or identity. Copied boxes require adjustment and fresh review. Arrow keys navigate frames. Undo clears review confirmations.</p>
+<p id="status" role="status" aria-live="polite"></p>
+<details><summary>Model evidence record</summary><pre id="model-record"></pre></details></div>
+<div class="panel"><h2>Save your reference</h2><div class="controls"><button id="download" class="primary">Download JSON</button></div>
+<label class="file">Open saved JSON <input id="import" type="file" accept=".json,application/json"></label>
+<p class="muted">Opening a file replaces the working draft after source validation. Undo can restore the previous labels, with review confirmations cleared.</p>
+<p id="save-status" role="status">No saved draft yet. Browser caching is a convenience; download JSON to keep your work.</p>
+<p class="muted">Keep this folder's <a href="manifest.json">manifest</a> and images with the saved reference. <a href="reference-template.json" download>Download the empty template</a>.</p></div>
+</section><section aria-label="Reference labels">
+<div class="panel"><h2>Review session</h2><div class="grid"><label>Reviewer name <input id="reviewer" maxlength="200" placeholder="Your name"></label>
+<label>Reviewer type <select id="reviewer-kind"><option value="human">Human reviewer</option><option value="assistant">Assistant draft</option><option value="software_fixture">Software test fixture</option></select></label>
+<label>Annotation version <input id="version" maxlength="100" value="v1"></label><div><span class="muted">Changing reviewer clears all review confirmations.</span></div></div>
+<div class="controls"><label>First frame <input id="start" type="number" min="0" step="1"></label><label>Last frame <input id="end" type="number" min="0" step="1"></label><button id="apply-range">Apply interval</button></div>
+<p id="progress"></p><label class="check"><input id="attest" type="checkbox"><span>I personally reviewed every frame in this interval, checked person identities and documented exclusions.</span></label>
+<p class="muted">Attestation becomes available after every selected frame has been reviewed by a human. Every edit clears attestation. This tool records your declaration; it does not independently verify label quality.</p></div>
+<div class="panel"><h2>People in this frame</h2><div id="boxes" aria-label="Person boxes"></div><p id="box-empty">No boxes yet. Draw each visible person before reviewing.</p>
+<fieldset id="box-fields" disabled><legend>Selected person</legend><div class="controls"><label>Manual ID <select id="identity"></select></label><button id="new-identity">New identity</button></div>
+<p class="muted">Use the same p-number when the same person reappears. Manual identities are independent of tracker IDs.</p>
+<div class="coords"><label>X1<input id="x1" type="number" step="any"></label><label>Y1<input id="y1" type="number" step="any"></label><label>X2<input id="x2" type="number" step="any"></label><label>Y2<input id="y2" type="number" step="any"></label></div>
+<div class="controls"><button id="apply-box">Apply coordinates</button><button id="delete-box" class="danger">Delete box</button></div>
+<div class="controls"><label>Visibility <select id="visibility"><option value="visible">Visible</option><option value="partial">Partially occluded</option><option value="uncertain">Uncertain</option></select></label>
+<label><input id="truncated" type="checkbox">Clipped by frame</label><label><input id="ignore" type="checkbox">Exclude / ignore</label></div>
+<label for="box-notes">Person notes / reason for exclusion</label><textarea id="box-notes" rows="2" maxlength="2000"></textarea>
+<p class="muted">Uncertain or unidentified people require exclusion with a reason before review. Exclusions must be reported when evaluating.</p></fieldset></div>
+<div class="panel"><h2>Frame review</h2><p id="frame-state"></p><label class="check"><input id="empty" type="checkbox"><span>I inspected this frame and confirm no people are visible.</span></label>
+<label for="frame-notes">Frame notes</label><textarea id="frame-notes" rows="2" maxlength="4000"></textarea>
+<div class="controls"><button id="review" class="primary">Mark frame reviewed</button><button id="next-unreviewed">Next unreviewed</button></div>
+<p class="muted">Check all people, geometry and identity continuity. An empty label list alone is never a reviewed negative frame.</p></div>
+</section></div></main><footer><p id="credit"></p><p class="muted">Person tracking reference only. PPE labels and accuracy metrics are not produced here. Development clips cannot substitute for an independent final test set.</p></footer>
+<script>const bundle=/*DATA*/;const initialReference=/*REFERENCE*/;</script>
+<script>/*ANNOTATION_CORE*/</script><script>/*ANNOTATION_UI*/</script>
+</body></html>

@@ -1,13 +1,13 @@
 # Phase status
 
-As of 2026-10-11 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
+As of 2026-10-12 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
 | Phase | Status | Evidence / remaining gate |
 |---|---|---|
 | 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
 | 1 — real detection baseline | Inference implemented and verified; reference evaluation partial | Two real clips, 298 frames, annotated videos, JSONL, CPU timing, repeatability and frame-linked qualitative failures. Human reference annotations/accuracy pending. |
 | 2 — tracking comparison | Implemented and verified with observational proxies; formal evaluation pending | Both trackers on both clips, person-only records/videos, 12 replays and repeatability. No human identity labels or formal scores. |
-| 3 — failure analysis | Partially implemented and executed | Three controlled diagnostic variants, provisional failure records and frame viewer; labeled accuracy comparisons remain pending. |
+| 3 — failure analysis | Partially implemented and executed | Three diagnostic variants, failure records, person annotation editor and reference validation/freeze commands; human labels and accuracy comparisons pending. |
 | 4 — event reliability | Not started | Needs validated association and frozen reference events. |
 | 5 — API/dashboard | Not started | No mock application or invented metrics. |
 | 6 — release validation | Not started | Requires full platform integration and end-to-end validation. |
@@ -121,10 +121,12 @@ including the new tracker integration job. See PR checks for current-head status
 
 GitHub: authenticated push permission verified for `asadozzaman/worksite-vision-lab`.
 The new repository had no history. Empty base commit `a5f8ce3` initializes main;
-implementation lives on `feat/phase-0-foundation`.
-[PR #1](https://github.com/asadozzaman/worksite-vision-lab/pull/1) is open and unmerged.
-The PR head/history records subsequent baseline commit SHAs without a self-referential
-commit ID in this file.
+foundation, detection and tracking were merged through
+[PR #1](https://github.com/asadozzaman/worksite-vision-lab/pull/1) with explicit user
+approval. The squash commit on main is `e1eefd9052c4fb74a617d9ca01968bfccdfa4762`.
+The next annotation workflow is developed separately on `feat/reference-annotation-workflow`.
+Implementation commit: `fea452b`. Review: [PR #2](https://github.com/asadozzaman/worksite-vision-lab/pull/2),
+open for review; no merge of this new work has been performed.
 
 No Kaggle connector/execution action was exposed when checked; discovery returned
 no Kaggle result. No hosted notebook, GPU job, training or external paid compute ran.
@@ -139,7 +141,13 @@ remain excluded from Git.
 
 Tracking additions: `vision/tracking/`, `vision/evaluation/`, replay/review/validation
 scripts, Docker layer, tracker configs/tests, measured results and comparison report.
-PR #1 remains the review location; no merge was performed.
+The person annotation editor adds source-bound v2 JSON, independent manual IDs,
+copy/edit/undo, explicit empty-frame confirmation, human review attestation and
+reference freeze commands. New bundles cover all 298 frames under `data/annotation/`.
+The browser test labels are marked software fixtures and are not human truth.
+The new local foundation suite passes 79 tests (25 new), with seven Node tests;
+see [workflow and verification](ANNOTATION_WORKFLOW.md). Current-head CI is reported
+by the separate annotation pull request.
 
 Next: human review of the exported contiguous reference frames, frozen identity
 and box annotations, and a distinct held-out scene. Use these to evaluate detector
