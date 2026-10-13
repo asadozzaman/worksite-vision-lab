@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "source_commit": "8b97207e61233a5d4edd4ffe90e6ae19bed62f73",
+  "scope": "saved_person_predictions_only",
+  "accuracy": null,
+  "clip": {
+    "name": "Building site",
+    "width": 360,
+    "height": 640,
+    "fps": 25.0,
+    "frame_count": 131,
+    "video_sha256": "d27da60077cb9a8b41f0ffde748026f9b6f213c430979875a0df1f4f0a6d7d53",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Men_at_work_in_building_site.webm",
+    "author": "Akum20",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "modifications": [
+      "resizing",
+      "resampling",
+      "JPEG frame extraction",
+      "overlays"
+    ]
+  },
+  "model": {
+    "name": "YOLO26n PPE / Person class",
+    "sha256": "b2e1cca6615d9826b061223ca646b3791efeb2cdca2917222d4899b705ccc0a3",
+    "person_class_id": 6,
+    "confidence_floor": 0.25,
+    "inference_size": 640
+  },
+  "input_sha256": {
+    "detections": "b973ca43de30a28e6422c7a6610d14ce9c10c26a541b649968d951ecae7e1a85",
+    "bytetrack": "85bb1833db725f723ee6a46213c5553375c40966543e28f0b36471a2ecccab35",
+    "botsort": "6bfb77f37a4e599c411fa210c7338605d2f70ee2382fb383fbc80d8c98c5aa36"
+  },
+  "baseline_source_summary_sha256": "f400ce30fcbba3a0f551323bd86e328960c1f9802724fb82d2317fe8a5b925c4",
+  "frames": [
+    {
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "image": "assets/frames/000000.jpg",
+      "image_sha256": "287f268d4b71276b48ca1b23679160a51c085523387755593f66b854c0a1597c",
+      "detections": [
+        {
+          "source_index": 0,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.7989908456802368,
+          "xyxy": [
+            244.97540283203125,
+            0.0,
+            358.3089599609375,
+            257.86065673828125
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.7989908456802368,
+            "xyxy": [
+              244.97540283203125,
+              0.0,
+              358.3089599609375,
+              257.86065673828125
+            ],
+            "detection_index": 0
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.7989908456802368,
+            "xyxy": [
+              244.97540283203125,
+              0.0,
+              358.3089599609375,
+              257.86065673828125
+            ],
+            "detection_index": 0
+          }
+        ]
+      }
+    },
+    {
+      "frame_index": 25,
+      "timestamp_seconds": 1.0,
+      "image": "assets/frames/000025.jpg",
+      "image_sha256": "61a5a00c621106a034e0d92a6d3c85537d5e10091bff5bf09e22ae4c57c032cb",
+      "detections": [
+        {
+          "source_index": 1,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.6310913562774658,
+          "xyxy": [
+            264.369873046875,
+            0.0,
+            354.95782470703125,
+            282.38665771484375
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.6310913562774658,
+            "xyxy": [
+              257.0430908203125,
+              0.0,
+              362.5485534667969,
+              282.36749267578125
+            ],
+            "detection_index": 1
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.6310913562774658,
+            "xyxy": [
+              265.4678649902344,
+              0.10087080299854279,
+              356.6852111816406,
+              283.021484375
+            ],
+            "detection_index": 1
+          }
+        ]
+      }
+    },
+    {
+      "frame_index": 50,
+      "timestamp_seconds": 2.0,
+      "image": "assets/frames/000050.jpg",
+      "image_sha256": "65972907c2b9104bbe598a0ec1f0ed1a9c39c1f446c10dd3a18ad627d2899c6b",
+      "detections": [
+        {
+          "source_index": 0,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.7118738889694214,
+          "xyxy": [
+            14.901142120361328,
+            10.4747314453125,
+            159.35223388671875,
+            417.4013366699219
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 9,
+            "class_id": 6,
+            "confidence": 0.7118738889694214,
+            "xyxy": [
+              2.0512218475341797,
+              8.541481971740723,
+              172.5754852294922,
+              418.9514465332031
+            ],
+            "detection_index": 0
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 8,
+            "class_id": 6,
+            "confidence": 0.7118738889694214,
+            "xyxy": [
+              14.705545425415039,
+              8.595834732055664,
+              159.64869689941406,
+              418.85870361328125
+            ],
+            "detection_index": 0
+          }
+        ]
+      }
+    },
+    {
+      "frame_index": 75,
+      "timestamp_seconds": 3.0,
+      "image": "assets/frames/000075.jpg",
+      "image_sha256": "84c90dd47d93536e47693f92e0fba1d37c4e2f0d6150e1dd8285ddb9bec3f2ed",
+      "detections": [
+        {
+          "source_index": 1,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.4907221794128418,
+          "xyxy": [
+            292.8337097167969,
+            0.0,
+            360.0,
+            291.2838439941406
+          ]
+        },
+        {
+          "source_index": 2,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.4548051059246063,
+          "xyxy": [
+            6.384311676025391,
+            92.94398498535156,
+            194.93617248535156,
+            382.6234436035156
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 9,
+            "class_id": 6,
+            "confidence": 0.4548051059246063,
+            "xyxy": [
+              26.121171951293945,
+              96.68370056152344,
+              180.2576446533203,
+              380.40252685546875
+            ],
+            "detection_index": 2
+          },
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.4907221794128418,
+            "xyxy": [
+              292.70635986328125,
+              0.10484984517097473,
+              361.9875183105469,
+              290.63763427734375
+            ],
+            "detection_index": 1
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 8,
+            "class_id": 6,
+            "confidence": 0.4548051059246063,
+            "xyxy": [
+              4.185409069061279,
+              95.85979461669922,
+              199.65232849121094,
+              379.6338806152344
+            ],
+            "detection_index": 2
+          },
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.4907221794128418,
+            "xyxy": [
+              292.9638366699219,
+              -1.1058485507965088,
+              358.742431640625,
+              289.6637268066406
+            ],
+            "detection_index": 1
+          }
+        ]
+      }
+    },
+    {
+      "frame_index": 100,
+      "timestamp_seconds": 4.0,
+      "image": "assets/frames/000100.jpg",
+      "image_sha256": "69e60a950aff14f568f12b0d0f83b9ba41b15189f618dda3b99fc443727f9f30",
+      "detections": [
+        {
+          "source_index": 0,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.7508322596549988,
+          "xyxy": [
+            20.01275634765625,
+            8.985321044921875,
+            163.09982299804688,
+            410.77764892578125
+          ]
+        },
+        {
+          "source_index": 1,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.5229559540748596,
+          "xyxy": [
+            291.2272033691406,
+            0.0,
+            360.0,
+            296.2333068847656
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 9,
+            "class_id": 6,
+            "confidence": 0.7508322596549988,
+            "xyxy": [
+              0.05834073945879936,
+              9.970315933227539,
+              183.61068725585938,
+              411.0971984863281
+            ],
+            "detection_index": 0
+          },
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.5229559540748596,
+            "xyxy": [
+              293.50341796875,
+              -0.013046858832240105,
+              358.7661437988281,
+              295.7907409667969
+            ],
+            "detection_index": 1
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 8,
+            "class_id": 6,
+            "confidence": 0.7508322596549988,
+            "xyxy": [
+              19.350807189941406,
+              9.471481323242188,
+              163.05758666992188,
+              410.5687255859375
+            ],
+            "detection_index": 0
+          },
+          {
+            "track_id": 1,
+            "class_id": 6,
+            "confidence": 0.5229559540748596,
+            "xyxy": [
+              291.58599853515625,
+              -0.5668699145317078,
+              359.4637756347656,
+              295.2066345214844
+            ],
+            "detection_index": 1
+          }
+        ]
+      }
+    },
+    {
+      "frame_index": 130,
+      "timestamp_seconds": 5.2,
+      "image": "assets/frames/000130.jpg",
+      "image_sha256": "78c775c75959d79a2769b3b9586eaa4bc6805c790bd008257c0c595b50a0845d",
+      "detections": [
+        {
+          "source_index": 0,
+          "class_id": 6,
+          "class_name": "Person",
+          "confidence": 0.7334333062171936,
+          "xyxy": [
+            18.754573822021484,
+            0.7181320190429688,
+            164.84239196777344,
+            323.78814697265625
+          ]
+        }
+      ],
+      "tracks": {
+        "bytetrack": [
+          {
+            "track_id": 9,
+            "class_id": 6,
+            "confidence": 0.7334333062171936,
+            "xyxy": [
+              17.43236541748047,
+              0.8242231607437134,
+              166.89642333984375,
+              317.0710144042969
+            ],
+            "detection_index": 0
+          }
+        ],
+        "botsort": [
+          {
+            "track_id": 8,
+            "class_id": 6,
+            "confidence": 0.7334333062171936,
+            "xyxy": [
+              17.707134246826172,
+              -0.38740667700767517,
+              163.6607208251953,
+              315.75244140625
+            ],
+            "detection_index": 0
+          }
+        ]
+      }
+    }
+  ]
+}

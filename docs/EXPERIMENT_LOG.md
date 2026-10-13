@@ -173,3 +173,22 @@ No failure hypotheses or performance improvements are claimed before observation
   exactly reproduces the source-summary bytes/hash used by the tracker. Evaluation
   input binding remains unchanged.
 - No new inference, tuning, training, human reference review or safety-event result.
+
+## PAGES-001 — static public evidence viewer (2026-10-13)
+
+- Exported six building JPEGs and their exact saved Person/ByteTrack/BoT-SORT
+  predictions after checking all source images and complete prediction streams.
+  The CC0 source permits these documented image derivatives; raw video stays local.
+- Added a public read-only viewer, actual baseline observations, source attribution
+  and links to pinned research documents. No uploads, inference, draft labels or
+  safety-event claims are included.
+- Verified all four display modes, frame 0/130 navigation, timestamp alignment,
+  desktop/mobile layout and absence of horizontal page overflow on mobile.
+- Two Node evidence tests check prediction equivalence and the public payload;
+  extra files, changed images and a wrong scene manifest are rejected by export/
+  preparation guards. Publication uses committed blobs on a separate Pages branch.
+- No new inference, human reference annotation, tuning or real accuracy result.
+- Live verification: Pages built deployment 570d9ca from source bae289f; HTTPS
+  enforced. All 13 public file hashes matched over unauthenticated HTTPS. Browser
+  loaded frame 50 and the expected BoT-SORT ID 8. Both ten-job source workflows
+  passed. The public URL is https://asadozzaman.github.io/worksite-vision-lab/.

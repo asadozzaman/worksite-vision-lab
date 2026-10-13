@@ -14,6 +14,11 @@ safety events and the web application are planned work.
 [Evaluation protocol](docs/PERSON_EVALUATION.md) ·
 [Engineering readiness](docs/ENGINEERING_READINESS.md)
 
+The [public research demo](https://asadozzaman.github.io/worksite-vision-lab/) inspects
+six real building frames with switchable saved detector/tracker overlays.
+It is a static evidence viewer; live inference and uploads require the later backend.
+[Publication and source checks](docs/GITHUB_PAGES.md).
+
 ## A real failure, with its input preserved
 
 ![Raw building frame, person detections and BoT-SORT output at frame 50](docs/figures/building-baseline/figure.png)

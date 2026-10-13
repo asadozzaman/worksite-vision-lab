@@ -5,3 +5,9 @@
 *.yml text eol=lf
 *.json text eol=lf
 *.jsonl text eol=lf
+site/*.html text eol=lf
+site/*.css text eol=lf
+site/*.js text eol=lf
+site/*.svg text eol=lf
+site/*.png binary
+site/**/*.jpg binary

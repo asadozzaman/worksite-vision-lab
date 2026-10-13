@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "hosting": "GitHub Pages",
+  "scope": "saved_person_predictions_only",
+  "evidence_source_commit": "8b97207e61233a5d4edd4ffe90e6ae19bed62f73",
+  "accuracy_measured": false,
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app.js",
+      "bytes": 6296,
+      "sha256": "7b813567bf06fa3a9c3b77d78355533e422ddd8da2d2ce6ddb25259ab8583299"
+    },
+    {
+      "path": "assets/baseline-comparison.png",
+      "bytes": 1685667,
+      "sha256": "04ddcd987d13aa470702c268c229d99a2a28fbd4fe3cb5168c20530b3ea0e7e0"
+    },
+    {
+      "path": "assets/frames/000000.jpg",
+      "bytes": 149462,
+      "sha256": "287f268d4b71276b48ca1b23679160a51c085523387755593f66b854c0a1597c"
+    },
+    {
+      "path": "assets/frames/000025.jpg",
+      "bytes": 145218,
+      "sha256": "61a5a00c621106a034e0d92a6d3c85537d5e10091bff5bf09e22ae4c57c032cb"
+    },
+    {
+      "path": "assets/frames/000050.jpg",
+      "bytes": 141242,
+      "sha256": "65972907c2b9104bbe598a0ec1f0ed1a9c39c1f446c10dd3a18ad627d2899c6b"
+    },
+    {
+      "path": "assets/frames/000075.jpg",
+      "bytes": 139568,
+      "sha256": "84c90dd47d93536e47693f92e0fba1d37c4e2f0d6150e1dd8285ddb9bec3f2ed"
+    },
+    {
+      "path": "assets/frames/000100.jpg",
+      "bytes": 144215,
+      "sha256": "69e60a950aff14f568f12b0d0f83b9ba41b15189f618dda3b99fc443727f9f30"
+    },
+    {
+      "path": "assets/frames/000130.jpg",
+      "bytes": 148810,
+      "sha256": "78c775c75959d79a2769b3b9586eaa4bc6805c790bd008257c0c595b50a0845d"
+    },
+    {
+      "path": "icon.svg",
+      "bytes": 275,
+      "sha256": "504bf114d5050720bc3aac26c47bf5eb429025c0ed481deff97abf475327b73a"
+    },
+    {
+      "path": "index.html",
+      "bytes": 10428,
+      "sha256": "153934ea0dd49193ce10f41228eb75215e26eee9f197cef2381ea76fa7dfee8d"
+    },
+    {
+      "path": "results.json",
+      "bytes": 10853,
+      "sha256": "cec4c32e41a8fec147d2350d4c0b4fd2757a4f08d9db4b18e35cd9aa38bfccf8"
+    },
+    {
+      "path": "style.css",
+      "bytes": 11759,
+      "sha256": "ce41283a1326a258f2970b4f25f29a734fcdbdea2f9871ea1eab0383ebd059e2"
+    }
+  ],
+  "manifest_note": "This manifest does not hash itself. No user annotations or model weights are published."
+}

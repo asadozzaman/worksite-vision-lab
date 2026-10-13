@@ -2,8 +2,8 @@
 
 Research snapshot: 2026-10-10. Original Worksite Vision Lab code is AGPL-3.0-only.
 That license does not relicense external content. No checkpoint, source video or dataset
-is included in the source repository. The CC0 building-frame comparison figure is
-documented separately below and retains its source/license notice.
+is included in the source repository. The CC0 building-frame comparison figure and
+six public demo frame derivatives retain source/license and modification notices.
 
 | Component / asset | License evidence | Treatment |
 |---|---|---|

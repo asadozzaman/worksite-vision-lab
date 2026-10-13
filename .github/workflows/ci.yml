@@ -31,7 +31,9 @@ jobs:
         with:
           node-version: '22'
       - run: node --test tests/annotation_core.test.cjs
+      - run: node --test tests/site_payload.test.cjs
       - run: node --check vision/evaluation/annotation-ui.js
+      - run: node --check site/app.js
   foundation:
     strategy:
       matrix:
