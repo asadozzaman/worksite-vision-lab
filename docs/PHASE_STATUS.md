@@ -2,6 +2,21 @@
 
 As of 2026-10-13 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
+## Main integration
+
+The person annotation workflow was merged through
+[PR #2](https://github.com/asadozzaman/worksite-vision-lab/pull/2), commit
+`33f87afdab5c4a6285183290abeb1e68d4ca3ab2`. Person evaluation and failure evidence
+were merged through [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4),
+commit `6f4ff69147b372b7aa39547d1b5861af30d06565`, after updating its base and passing
+both ten-job workflows. The public demo is live; its source integration is reviewed
+in [PR #5](https://github.com/asadozzaman/worksite-vision-lab/pull/5). The PR record
+provides its final merge state and commit. Integration uses merge commits to retain
+the stacked feature ancestry and pinned research links.
+
+The sections below retain implementation snapshots. Human reference QA and real
+accuracy remain pending; integration does not complete the PPE/event/application gates.
+
 | Phase | Status | Evidence / remaining gate |
 |---|---|---|
 | 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
@@ -126,7 +141,7 @@ foundation, detection and tracking were merged through
 approval. The squash commit on main is `e1eefd9052c4fb74a617d9ca01968bfccdfa4762`.
 The next annotation workflow is developed separately on `feat/reference-annotation-workflow`.
 Implementation commit: `fea452b`. Review: [PR #2](https://github.com/asadozzaman/worksite-vision-lab/pull/2),
-open for review; no merge of this new work has been performed.
+initially opened separately for review; its main integration is recorded above.
 
 No Kaggle connector/execution action was exposed when checked; discovery returned
 no Kaggle result. No hosted notebook, GPU job, training or external paid compute ran.
@@ -154,8 +169,9 @@ and box annotations, and a distinct held-out scene. Use these to evaluate detect
 duplicates/person fallback before PPE association or alert tuning. No training is justified.
 Do not claim later phases complete until their code and experiments actually run.
 
-The evaluation branch `feat/person-reference-evaluation` builds on the unmerged
-annotation branch. It provides `evaluate-person` with frozen-source checks, detector
+The evaluation branch `feat/person-reference-evaluation` was developed on the
+annotation branch before main integration. It provides `evaluate-person` with
+frozen-source checks, detector
 P/R/F1, motmetrics IDF1/MOTA/switch/fragmentation results, and frame-linked diagnostics.
 See [protocol and implementation limits](PERSON_EVALUATION.md). Software fixture
 scores are excluded from real-video research claims. No new checkpoint inference,
@@ -166,9 +182,9 @@ modules intentionally skipped. Seven Node tests, Ruff lint/format, dependency
 checks and wheel build passed. Fourteen non-benchmark upstream metric-function
 tests passed; the legacy multi-sequence helper is outside the supported scope.
 The CLI rejected the actual unreviewed building template and created no result.
-Evaluation implementation commit: `4a94fd5`. The evaluation review targets the
-annotation branch in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4) and depends on PR #2.
-It has not been merged. Current-head
+Evaluation implementation commit: `4a94fd5`. The evaluation review originally targeted the
+annotation branch in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4) and depended on PR #2.
+Main integration is recorded above. Current-head
 GitHub checks are the source of CI status. Earlier review history remains in
 [PR #3](https://github.com/asadozzaman/worksite-vision-lab/pull/3), which was closed
 when the branch was renamed to follow the project's neutral naming convention.
@@ -196,7 +212,8 @@ rejected without creating or replacing output. The figure and renderer hashes
 match the published manifest.
 
 GitHub repository description now reflects detection/tracking research; topic
-metadata describes the implemented stack. No default-branch merge was performed.
+metadata describes the implemented stack. At that presentation-review snapshot,
+no default-branch merge had been performed.
 
 Presentation implementation: `bec78117a5d41d8d6792d9acbad3cd5d6941ac02`.
 Review remains in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4),
@@ -223,7 +240,8 @@ Pages commit `570d9cae9904876089b166e244304e172a45c87a`, from source implementat
 `bae289f767437f654b510b3532d4f291f2f9bfa1`. GitHub reported built/HTTPS enforced;
 all 13 public files returned HTTP 200 with matching hashes and the live browser
 viewer showed the expected saved frame/track. Source review is
-[PR #5](https://github.com/asadozzaman/worksite-vision-lab/pull/5), targeting the
-unmerged evaluation branch. Both implementation CI workflows passed all ten jobs,
+[PR #5](https://github.com/asadozzaman/worksite-vision-lab/pull/5), originally targeting
+the evaluation branch. Its PR record tracks the subsequent main integration.
+Both implementation CI workflows passed all ten jobs,
 including the new public-evidence tests. Local validation: 138 Python tests and
 nine Node tests passed; optional vision integration remains in its separate CI job.
