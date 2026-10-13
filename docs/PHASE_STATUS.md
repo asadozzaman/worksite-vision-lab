@@ -197,3 +197,7 @@ match the published manifest.
 
 GitHub repository description now reflects detection/tracking research; topic
 metadata describes the implemented stack. No default-branch merge was performed.
+
+Presentation implementation: `bec78117a5d41d8d6792d9acbad3cd5d6941ac02`.
+Review remains in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4),
+which depends on annotation PR #2. Check its current-head CI before merging.
