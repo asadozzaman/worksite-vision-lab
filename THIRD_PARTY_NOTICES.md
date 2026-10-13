@@ -17,6 +17,9 @@ is included in the source repository.
 | PyTorch / torchvision | [PyTorch license](https://github.com/pytorch/pytorch/blob/main/LICENSE), [torchvision license](https://github.com/pytorch/vision/blob/main/LICENSE) | BSD-style upstream licenses and bundled notices apply. |
 | NumPy | [License](https://github.com/numpy/numpy/blob/main/LICENSE.txt) | BSD-3-Clause and bundled notices. |
 | lap 0.5.12 | [PyPI distribution](https://pypi.org/project/lap/0.5.12/), bundled BSD-2-Clause license | Linear assignment solver used by the tracker; retain upstream notices. |
+| motmetrics 1.4.0 | [MIT license](https://github.com/cheind/py-motmetrics/blob/v1.4.0/LICENSE), installed distribution notices | Imported for single-sequence CLEAR/Identity metrics; source is not vendored or patched. |
+| SciPy 1.15.3 / pandas 2.3.3 | Installed BSD-3-Clause license files and bundled library notices | Evaluation assignment and metric tables; retain distribution and bundled dependency notices. |
+| xmltodict 1.0.4 | Installed MIT distribution license | Transitive metric-library dependency; no XML inputs are parsed by this evaluator. |
 | OpenCV Python | [Packaging license](https://github.com/opencv/opencv-python/blob/master/LICENSE.txt), upstream OpenCV/bundled library notices | Keep package notices; wheel bundles have separate licenses. |
 | Pydantic | [License](https://github.com/pydantic/pydantic/blob/main/LICENSE) | MIT. |
 | pytest / Ruff / Hatchling | Respective installed distribution license metadata | Development/build tools; retain their distribution licenses. |

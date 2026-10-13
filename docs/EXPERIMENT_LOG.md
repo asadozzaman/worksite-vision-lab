@@ -131,3 +131,31 @@ No failure hypotheses or performance improvements are claimed before observation
 - 79 local foundation tests pass, seven Node tests pass, Ruff passes. Lightweight
   environment skips vision integration; dedicated existing CI job retained.
 - Human labels, accuracy metrics, held-out scene, PPE events and training still pending.
+
+## EVAL-001 — frozen person-reference evaluator (2026-10-12)
+
+- Built on the annotation branch without merging PR #2. Separate branch:
+  codex/person-reference-evaluation.
+- Added strict frozen-reference loading, source/video/image binding, full-stream
+  checksum validation and an explicit fixed-threshold matching/ignore protocol.
+- Both tracker inputs must use identical detector JSONL and baseline-summary bytes.
+  Default detector IoU/confidence 0.5/0.25; ignore prediction-IoA 0.5. All emitted
+  tracks are evaluated; clipped zero-area estimates remain false-positive candidates.
+- Detection assignment maximizes valid pair count before summed IoU. Tracking uses
+  motmetrics 1.4.0 with SciPy: continuity-preserving CLEAR association and global IDF1.
+  Reports interval counts, precision/recall/F1, IDF1, MOTA, MOTP, switches and fragments,
+  plus per-frame misses/false positives/switch diagnostics. No mAP/HOTA implementation.
+- Installed a separate pinned numerical environment. Exact hand-calculated software
+  examples, source corruption, empty intervals, geometry, ignore interaction, selected
+  intervals, repeatability and output protection are tested. These are not human labels.
+- The new parser accepted eight real baseline/confidence-variant tracking streams;
+  no accuracy was calculated. Existing unreviewed references remain unchanged.
+- Additional upstream test attempt found removed pandas assertion/merge APIs and a
+  missing optional benchmark plugin. Non-benchmark metric tests pass; the unused
+  legacy multi-sequence merge helper remains outside the supported runner scope.
+- Human label QA/freezing and a separate held-out scene remain research prerequisites.
+  No new inference, human annotation, training or safety reliability claim.
+- Publication verification (2026-10-13): 138 repository tests pass in the evaluation
+  environment, 103 in the lightweight environment (overlapping suites), seven Node
+  tests and 14 upstream non-benchmark metric tests pass. Ruff, dependency checks
+  and wheel build pass. Actual unreviewed building template rejected with no result.

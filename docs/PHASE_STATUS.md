@@ -1,13 +1,13 @@
 # Phase status
 
-As of 2026-10-12 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
+As of 2026-10-13 (Asia/Dhaka). This is a research prototype, not a finished safety platform.
 
 | Phase | Status | Evidence / remaining gate |
 |---|---|---|
 | 0 — foundation | Implemented and verified, with documented provenance risks | Repository/push access, isolated model load, official-architecture match, actual classes, licensed video acquisition, tests and CI verified. Original weight training-data rights unaudited; weights not redistributed. |
 | 1 — real detection baseline | Inference implemented and verified; reference evaluation partial | Two real clips, 298 frames, annotated videos, JSONL, CPU timing, repeatability and frame-linked qualitative failures. Human reference annotations/accuracy pending. |
 | 2 — tracking comparison | Implemented and verified with observational proxies; formal evaluation pending | Both trackers on both clips, person-only records/videos, 12 replays and repeatability. No human identity labels or formal scores. |
-| 3 — failure analysis | Partially implemented and executed | Three diagnostic variants, failure records, person annotation editor and reference validation/freeze commands; human labels and accuracy comparisons pending. |
+| 3 — failure analysis | Partially implemented and executed | Diagnostic variants, annotation/freeze tools and a tested person evaluation runner; human reference QA and actual accuracy comparisons pending. |
 | 4 — event reliability | Not started | Needs validated association and frozen reference events. |
 | 5 — API/dashboard | Not started | No mock application or invented metrics. |
 | 6 — release validation | Not started | Requires full platform integration and end-to-end validation. |
@@ -153,3 +153,16 @@ Next: human review of the exported contiguous reference frames, frozen identity
 and box annotations, and a distinct held-out scene. Use these to evaluate detector
 duplicates/person fallback before PPE association or alert tuning. No training is justified.
 Do not claim later phases complete until their code and experiments actually run.
+
+The new evaluation branch `codex/person-reference-evaluation` builds on the unmerged
+annotation branch. It provides `evaluate-person` with frozen-source checks, detector
+P/R/F1, motmetrics IDF1/MOTA/switch/fragmentation results, and frame-linked diagnostics.
+See [protocol and implementation limits](PERSON_EVALUATION.md). Software fixture
+scores are excluded from real-video research claims. No new checkpoint inference,
+human annotation, accuracy-based tuning, event code or model training occurred.
+Local evaluation environment: 138 repository tests passed; vision integration is
+handled separately. Lightweight foundation: 103 passed, with numerical/vision
+modules intentionally skipped. Seven Node tests, Ruff lint/format, dependency
+checks and wheel build passed. Fourteen non-benchmark upstream metric-function
+tests passed; the legacy multi-sequence helper is outside the supported scope.
+The CLI rejected the actual unreviewed building template and created no result.

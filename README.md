@@ -21,6 +21,7 @@ See [phase status](docs/PHASE_STATUS.md) for execution evidence and blockers.
 - Person-only ByteTrack/BoT-SORT replay with frozen detections, explicit settings and repeat checks.
 - Local person-box editing, manual identity continuity, JSON save/reopen and source-bound validation.
 - Explicit frame review and human-attestation gates for freezing annotation versions.
+- Offline person evaluation with source verification, frame-linked failures and pinned IDF1/MOTA metrics.
 
 The safety event engine, API, and React dashboard are subsequent gated phases.
 Human reference annotation remains pending. No accuracy improvement or unique-worker
@@ -105,6 +106,9 @@ for both trackers, controlled variants and the raw-frame review exporter.
 The editor opens real normalized frames with optional detector/tracker overlays;
 its empty reference templates are not ground truth. See [annotation workflow](docs/ANNOTATION_WORKFLOW.md)
 for drawing boxes, saving labels and validating/freezing a manually reviewed interval.
+The [person evaluator](docs/PERSON_EVALUATION.md) compares detection and both trackers
+on a frozen interval with declared matching/exclusion rules. Its software tests pass;
+real accuracy evaluation requires completed human labels, which remain pending.
 
 On the street clip, baseline ByteTrack emitted no tracks on 112/167 frames and
 BoT-SORT on 104/167. Lower detector confidence reduced these to 97/167 for both.

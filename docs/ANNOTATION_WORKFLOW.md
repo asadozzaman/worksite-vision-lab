@@ -103,3 +103,5 @@ Next research gate: a human completes and checks contiguous person labels, then
 freezes a version. Establish a distinct held-out scene before selecting a method
 for final accuracy evaluation. Follow [the annotation protocol](ANNOTATION_PROTOCOL.md)
 for metric definitions and later PPE/event annotation.
+The [person evaluation runner](PERSON_EVALUATION.md) is available to consume those
+frozen labels once reviewed; it refuses unreviewed/unsigned drafts.
