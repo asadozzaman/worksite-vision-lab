@@ -135,7 +135,7 @@ No failure hypotheses or performance improvements are claimed before observation
 ## EVAL-001 — frozen person-reference evaluator (2026-10-12)
 
 - Built on the annotation branch without merging PR #2. Separate branch:
-  codex/person-reference-evaluation.
+  feat/person-reference-evaluation.
 - Added strict frozen-reference loading, source/video/image binding, full-stream
   checksum validation and an explicit fixed-threshold matching/ignore protocol.
 - Both tracker inputs must use identical detector JSONL and baseline-summary bytes.
