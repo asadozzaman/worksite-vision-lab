@@ -167,7 +167,8 @@ checks and wheel build passed. Fourteen non-benchmark upstream metric-function
 tests passed; the legacy multi-sequence helper is outside the supported scope.
 The CLI rejected the actual unreviewed building template and created no result.
 Evaluation implementation commit: `4a94fd5`. The evaluation review targets the
-annotation branch and depends on PR #2; it has not been merged. Current-head
+annotation branch in [PR #4](https://github.com/asadozzaman/worksite-vision-lab/pull/4) and depends on PR #2.
+It has not been merged. Current-head
 GitHub checks are the source of CI status. Earlier review history remains in
 [PR #3](https://github.com/asadozzaman/worksite-vision-lab/pull/3), which was closed
 when the branch was renamed to follow the project's neutral naming convention.
